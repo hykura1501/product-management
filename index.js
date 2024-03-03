@@ -11,6 +11,8 @@ route(app)
 app.set('views', './views')
 app.set('view engine', 'pug')
 
+app.use(express.static('public'))
+
 app.listen(port, () => {
     console.log("Runnnnn");
 })
