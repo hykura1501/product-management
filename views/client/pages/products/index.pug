@@ -1,3 +1,20 @@
 extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+
 block main 
-  h1 Trang danh sách sản phẩm
+  .container.my-3 
+    .row 
+      .col-12 
+        +box-head("Danh sách sản phẩm")
+    .row 
+      .col-4.mb-3 
+        .product-item 
+          div.product
+            a.img-wrapper(href='#')
+              img(src='https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-13_2_.png')
+            .info
+              .title Some Product
+              .price $34.99
+            .actions-wrapper
+              a.add-btn.wishlist(href='#') Wishlist
+              a.add-btn.cart(href='#') Cart
