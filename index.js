@@ -1,8 +1,10 @@
 const express = require("express")
 const route = require("./routes/client/index.route")
 
+require('dotenv').config();
+
 const app = express()
-const port = 3000
+const port = process.env.PORT
 
 route(app)
 
