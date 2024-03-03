@@ -1,5 +1,11 @@
 const express = require("express")
-const route = require("./routes/client/index.route")
+const route = require("./routes/client/index.route");
+
+const database = require("./config/database")
+
+database.connect()
+
+
 
 require('dotenv').config();
 
