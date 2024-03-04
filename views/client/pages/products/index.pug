@@ -2,21 +2,39 @@ extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
 
 block main 
-  .container.my-3 
-    .title-page
-      .col-12 
-        +box-head("Danh sách sản phẩm")
-    .list-product 
-      each item in products 
-        div.product-item 
-          a.img-wrapper(href='#')
-            img(src=item.thumbnail)
-          .info
-            //- .title #{item.title}
-            //- .price $#{item.price}
-            //- .new-price $#{item.price}
-            .info-price   
-              h5.price.old $#{item.price}
-              h5.price.sale $#{Math.floor(item.price * (1 - item.discountPercentage/100))}
-            p.title #{item.title}
-            h5.discountPer -#{item.discountPercentage}% 
+  //- .container.my-3 
+  //-   .title-page
+  //-     .col-12 
+  //-       +box-head("Danh sách sản phẩm")
+  //-   .list-product 
+      //- each item in products 
+      //-   div.product-item 
+      //-     a.img-wrapper(href='#')
+      //-       img(src=item.thumbnail)
+      //-     .info
+      //-       //- .title #{item.title}
+      //-       //- .price $#{item.price}
+      //-       //- .new-price $#{item.price}
+      //-       .info-price   
+      //-         h5.price.old $#{item.price}
+      //-         h5.price.sale $#{Math.floor(item.price * (1 - item.discountPercentage/100))}
+      //-       p.title #{item.title}
+      //-       h5.discountPer -#{item.discountPercentage}% 
+  .container-fluid
+    .row
+      .col-3
+        div Sider
+      .col-9
+        .row  
+          each item in products 
+            div.product-item.col-3
+              a.img-wrapper(href='#')
+                img(src=item.thumbnail)
+              .info
+                .info-price   
+                  h5.price.old $#{item.price}
+                  h5.price.sale $#{Math.floor(item.price * (1 - item.discountPercentage/100))}
+                p.title #{item.title}
+                h5.discountPer -#{item.discountPercentage}% 
+
+        

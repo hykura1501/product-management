@@ -116,8 +116,6 @@
 }
 
 
-
-
 /*Footer*/
 .footer-container{
 	max-width: 1170px;
@@ -193,22 +191,14 @@ ul{
 
 /*Layout column 4*/
 
-
-.list-product {
-  padding: 0 60px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-
 /*Product Card*/
 
 .product-item
 {
   border: 1px solid #000;
   width: 240px;
-  position: relative;
   margin: 20px;
+  /* flex-grow: 0; */
 }
 .product a
 {
@@ -231,7 +221,6 @@ ul{
     height: 210px;
     width: 230px;
 }
-
 
 .info {
   display: flex;
@@ -279,97 +268,4 @@ ul{
   padding: 5px;
   background-color: #e32d2c;
   color: #11f03a;
-}
-
-.product:hover .info
-{
-  height: 40px;
-}
-
-.product:hover .info:before
-{
-  transform: scaleY(0.7);
-}
-
-.product:hover .info:after
-{
-  visibility: visible;
-  transform: translateY(10px);
-}
-
-.product:hover .title
-{
-  transform: translateY(-18px);
-  font-weight: bold;
-  color: #000;
-}
-
-.actions-wrapper
-{
-  margin-top: 14px;
-  display: flex;
-  justify-content: space-around;
-  visibility: hidden;
-}
-
-.actions-wrapper *
-{
-  width: 50%;
-  padding: 2px 0;
-  text-align: center;
-  color: #191919;
-  font-size: 0.95em;
-  font-weight: bold;
-}
-.actions-wrapper *:before
-{
-  font-family: "FontAwesome";
-  margin-right: 8px;
-}
-.wishlist
-{
-  border-right: 1px solid #afafaf;
-}
-.wishlist:hover
-{
-  color: #e32d2c;
-}
-.wishlist:before
-{
-  content: "\f08a";
-}
-
-.cart:hover
-{
-  color: #0a75b9;
-}
-.cart:before
-{
-  content: "\f07a";
-}
-
-.product:hover .actions-wrapper *
-{
-  visibility: visible;
-}
-
-.note
-{
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 4px 8px;
-  font-size: 0.9em;
-}
-
-.note.on-sale
-{
-  background: #00ba2f;
-  color: #fff;
-}
-
-.note.no-stock
-{
-  background: #191919;
-  color: #fff;
 }

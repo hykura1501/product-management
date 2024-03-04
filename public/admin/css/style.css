@@ -1,0 +1,38 @@
+.body {
+    display: flex;
+    height: 900px;
+}
+.header  {
+    background: yellow;
+}
+.inner-logo {
+    padding: 20px;
+}
+
+.sider {
+    width: 250px;
+    height: 100%;
+    display: block;
+    background-color: rgb(250, 215, 215);
+}
+
+.main {
+    width: 100%;
+}
+.inner-menu ul{
+    list-style: none;
+    padding: 0;
+    flex: 1;
+}
+
+.inner-menu ul li {
+    flex: 1;
+    border: 1px solid #333;
+    margin-bottom: 5px;
+}
+
+.inner-menu ul li a{
+    color: whi;
+    text-decoration: none;
+
+}
