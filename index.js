@@ -15,7 +15,6 @@ const port = process.env.PORT
 // App Local Variables
 app.locals.prefixAdmin = systemConfig.prefixAdmin
 
-
 route(app)
 adminRoute(app)
 
