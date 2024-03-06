@@ -1,25 +1,20 @@
 extends ../../layouts/default.pug
+include ../../mixins/filter-status.pug
+include ../../mixins/search.pug
 
 block main 
   .ml-3
     h1 Danh sách sản phẩm
-    .card-header Bộ lọc và tìm kiếm
-      .card   
-        .row
-          .col-6
-            .card-body 
-              each item in filterStatus
-                button(
-                  class=`btn btn-outline-success ${item.class} mr-3`
-                  button-status=item.status
-                )=item.name
-          .col-6.d-flex.align-items-center
-            form.w-100(id="form-search") 
-              .input-group
-                input(type="text" class="form-control" placeholder="Nhập tìm kiếm" name="keyword" value=keyword)
-                button(class="btn btn-success" type="submit") Tìm kiếm
+    .card   
+      .card-header Bộ lọc và tìm kiếm
+      .row
+        .col-6
+          .card-body 
+            +filter-status(filterStatus)
+        .col-6.d-flex.align-items-center
+          +search(keyword)
       
-    div(class="m-4") Danh sách
+    div.card-header Danh sách
     table.table.table-hover.table-sm 
       thead 
         tr  

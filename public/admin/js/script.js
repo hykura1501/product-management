@@ -20,7 +20,7 @@ const formSearch = document.querySelector("#form-search")
 if(formSearch) {
     formSearch.addEventListener("submit", (event) => {
         event.preventDefault();
-        const keyword = event.target.elements.keyword.value
+        const keyword = event.target.elements.keyword.value.trim()
         const newUrl = new URL(window.location.href)
         if(keyword) {
             newUrl.searchParams.set("keyword", keyword)
