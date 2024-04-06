@@ -31,3 +31,18 @@ if(formSearch) {
     })
 }
 //End form search
+
+//Pagination
+const buttonPage = document.querySelectorAll('[button-pagination]')
+if(buttonPage) {
+    buttonPage.forEach((button) => {
+        button.addEventListener("click", () => {
+            const page = button.getAttribute('button-pagination')
+            const newUrl = new URL(window.location.href)
+            newUrl.searchParams.set("page", page);
+            window.location.href = newUrl.href
+        })
+    })
+}
+
+//End Pagination

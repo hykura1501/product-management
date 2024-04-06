@@ -15,7 +15,6 @@ module.exports.products = async (req, res) => {
   }
   // End Filter Status
 
-
   
   //Search
   const objectSearch = searchHelper(req.query)
@@ -24,12 +23,30 @@ module.exports.products = async (req, res) => {
   }
   //End Search
 
-  const products = await Product.find(find);
+  
+  //Pagination
+  const objectPagination = {
+    limitItem: 4,
+    currentPage: 1,
+  }
+  if(req.query.page) {
+    objectPagination.currentPage = parseInt(req.query.page)
+    objectPagination.skip = (objectPagination.currentPage - 1) * objectPagination.limitItem
+  }
+
+  const countProducts = await Product.countDocuments(find)
+  const totalPages = Math.ceil(countProducts / objectPagination.limitItem)
+  objectPagination.totalPages = totalPages
+
+  //End Pagination
+
+  const products = await Product.find(find).limit(objectPagination.limitItem).skip(objectPagination.skip);
 
   res.render("admin/pages/products/index", {
     pageTitle: "Trang danh sách sản phẩm",
     products: products,
     filterStatus: filterStatus,
-    keyword: objectSearch.keyword
+    keyword: objectSearch.keyword,
+    pagination: objectPagination
   });
 };
