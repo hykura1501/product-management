@@ -1,7 +1,7 @@
 extends ../../layouts/default.pug
 include ../../mixins/filter-status.pug
 include ../../mixins/search.pug
-
+include ../../mixins/pagination.pug
 block main 
   .ml-3
     h1 Danh sách sản phẩm
@@ -43,14 +43,4 @@ block main
             td 
               button(class="btn btn-warning btn-sm") Sửa
               button(class="btn btn-danger btn-sm ml-1") Xóa
-    nav
-      ul.pagination
-        if(pagination.currentPage > 1) 
-          li.page-item
-            button(class='page-link', button-pagination = pagination.currentPage - 1) Previous
-        -for (var i = 1; i <= pagination.totalPages; i++)
-          li(class = `page-item ${i == pagination.currentPage ? 'active' : ''}`)
-            button(class='page-link', button-pagination = i) #{i}
-        if(pagination.currentPage < pagination.totalPages)
-          li.page-item
-            button(class='page-link', button-pagination = pagination.currentPage + 1) Next
+    +pagination(pagination)
