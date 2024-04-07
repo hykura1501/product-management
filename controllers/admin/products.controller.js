@@ -3,6 +3,7 @@ const filterStatusHelper = require("../../helpers/filterStatus")
 const searchHelper = require("../../helpers/search")
 const paginationHelper = require("../../helpers/pagination")
 
+//[GET] Get products
 module.exports.products = async (req, res) => {
   const find = {
     deleted: false,
@@ -42,8 +43,18 @@ module.exports.products = async (req, res) => {
   res.render("admin/pages/products/index", {
     pageTitle: "Trang danh sách sản phẩm",
     products: products,
-    filterStatus: filterStatus,
+    filterStatus: filterStatus, 
     keyword: objectSearch.keyword,
     pagination: objectPagination
   });
 };
+
+//[PATCH] Change status product
+module.exports.changeStatus = async (req, res) => {
+  const status = req.params.status
+  const id = req.params.id
+
+  await Product.updateOne({_id: id}, {status: status})
+
+  res.redirect('back')
+}
