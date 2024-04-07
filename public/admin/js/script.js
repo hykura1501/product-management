@@ -74,7 +74,7 @@ btnCheckbox.forEach(btn => {
     })
 })
 
-const formChangeMulti = document.querySelector("#form-change-multi")
+const formChangeMulti = document.querySelector("[form-change-multi]")
 const btnSubmit = formChangeMulti.querySelector("button[type=submit]")
 btnSubmit.addEventListener('click', (e) => {
     e.preventDefault();
@@ -86,7 +86,6 @@ btnSubmit.addEventListener('click', (e) => {
         })
         const inputIds = formChangeMulti.querySelector("input[name=ids]")
         inputIds.value = ids.join(", ")
-        console.log(inputIds.value);
         formChangeMulti.submit();
     }
     

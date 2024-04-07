@@ -15,3 +15,20 @@ if(buttonsChangeStatus) {
     })
 }
 //End Change status
+
+// Delete product item
+const buttonDelete = document.querySelectorAll('[button-delete-item]')
+buttonDelete.forEach(button => {
+    button.addEventListener("click", (e) => {
+        const yes = confirm("Bạn có chắc chắn muốn xóa không?")
+        if(yes) {
+            const id = button.getAttribute("data-id")
+            const formDeleteItem = document.querySelector('#form-delete-item')
+            const path = formDeleteItem.getAttribute('data-path')
+            const action = `${path}/${id}/?_method=DELETE`
+            formDeleteItem.action = action
+            formDeleteItem.submit()
+        }
+    })
+})
+// End Delete product item
