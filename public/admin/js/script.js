@@ -46,3 +46,50 @@ if(buttonPage) {
 }
 
 //End Pagination
+
+//Change Multi Status
+const btnCheckAll = document.querySelector("input[name=checkall]")
+const btnCheckbox = document.querySelectorAll("input[name=id]")
+btnCheckAll.addEventListener('click', (e) => {
+    if(btnCheckAll.checked) {
+        btnCheckbox.forEach(btn => {
+            btn.checked = true
+        })
+    }else {
+        btnCheckbox.forEach(btn => {
+            btn.checked = false
+        })
+    }
+})
+
+btnCheckbox.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const countChecked = document.querySelectorAll('input[name=id]:checked').length
+        const totalBtn = btnCheckbox.length
+        if(countChecked === totalBtn) {
+            btnCheckAll.checked = true
+        }else {
+            btnCheckAll.checked = false
+        }
+    })
+})
+
+const formChangeMulti = document.querySelector("#form-change-multi")
+const btnSubmit = formChangeMulti.querySelector("button[type=submit]")
+btnSubmit.addEventListener('click', (e) => {
+    e.preventDefault();
+    const btnChecked = document.querySelectorAll('input[name=id]:checked')    
+    if(btnChecked.length > 0) {
+        let ids = []
+        btnChecked.forEach((id) => {
+            ids.push(id.value);
+        })
+        const inputIds = formChangeMulti.querySelector("input[name=ids]")
+        inputIds.value = ids.join(", ")
+        console.log(inputIds.value);
+        formChangeMulti.submit();
+    }
+    
+})
+
+//End Change Multi Status

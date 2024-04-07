@@ -14,42 +14,65 @@ block main
         .col-6.d-flex.align-items-center
           +search(keyword)
       
-    div.card-header Danh sách
-    table.table.table-hover.table-sm 
-      thead 
-        tr  
-          th STT 
-          th Hình ảnh 
-          th Tên sản phẩm
-          th Giá
-          th Trạng thái 
-          th Hành động
-      tbody 
-        each item, index in products
-          tr 
-            td= index + 1
-            td 
-              img(
-                src=item.thumbnail,
-                alt=item.title,
-                srcset="",
-                width="100px",
-                height="auto"
+      .card-body 
+        .card-title Danh sách
+        form(
+          action = `${prefixAdmin}/products/change-multi?_method=PATCH`
+          method = 'POST'
+          id = "form-change-multi"
+        )
+          .d-flex.align-items-start
+            .form-group
+              select(name = 'type' class='form-control')  
+                option(value="active") Hoạt động 
+                option(value="inactive") Dừng hoạt động 
+            .form-group   
+              input.d-none(
+                type="text"
+                name="ids"
+                class="form-control"
+                value = ""
               )
-            td=item.title
-            td="$" + item.price
-            td
-              a(
-                href="javascript:;"
-                class=`badge ${item.status === "active" ? "badge-success" : "badge-danger"}`
-                button-change-status
-                data-status = item.status
-                data-id = item.id
-                ) #{item.status === "active" ? "Hoạt động" : "Dừng hoạt động"}
-                
-            td 
-              button(class="btn btn-warning btn-sm") Sửa
-              button(class="btn btn-danger btn-sm ml-1") Xóa
+            button(type = 'submit' class='btn btn-primary') Áp dụng
+        table.table.table-hover.table-sm 
+          thead 
+            tr  
+              th 
+                input(type="checkbox" name="checkall")
+              th STT 
+              th Hình ảnh 
+              th Tên sản phẩm
+              th Giá
+              th Trạng thái 
+              th Hành động
+          tbody 
+            each item, index in products
+              tr 
+                td  
+                  input(type="checkbox" name = 'id' value=item.id)
+                td= index + 1
+                td 
+                  img(
+                    src=item.thumbnail,
+                    alt=item.title,
+                    srcset="",
+                    width="100px",
+                    height="auto"
+                  )
+                td=item.title
+                td="$" + item.price
+                td
+                  a(
+                    href="javascript:;"
+                    class=`badge ${item.status === "active" ? "badge-success" : "badge-danger"}`
+                    button-change-status
+                    data-status = item.status
+                    data-id = item.id
+                    ) #{item.status === "active" ? "Hoạt động" : "Dừng hoạt động"}
+                    
+                td 
+                  button(class="btn btn-warning btn-sm") Sửa
+                  button(class="btn btn-danger btn-sm ml-1") Xóa
     +pagination(pagination)
     form(
       action = ""
