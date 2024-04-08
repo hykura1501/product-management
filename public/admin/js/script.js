@@ -52,59 +52,66 @@ if(buttonPage) {
 
 const btnCheckAll = document.querySelector("input[name=checkall]")
 const btnCheckbox = document.querySelectorAll("input[name=id]")
-btnCheckAll.addEventListener('click', (e) => {
-    if(btnCheckAll.checked) {
-        btnCheckbox.forEach(btn => {
-            btn.checked = true
-        })
-    }else {
-        btnCheckbox.forEach(btn => {
-            btn.checked = false
-        })
-    }
-})
-btnCheckbox.forEach(btn => {
-    btn.addEventListener('click', () => {
-        const countChecked = document.querySelectorAll('input[name=id]:checked').length
-        const totalBtn = btnCheckbox.length
-        if(countChecked === totalBtn) {
-            btnCheckAll.checked = true
+if(btnCheckAll) {
+    btnCheckAll.addEventListener('click', (e) => {
+        if(btnCheckAll.checked) {
+            btnCheckbox.forEach(btn => {
+                btn.checked = true
+            })
         }else {
-            btnCheckAll.checked = false
+            btnCheckbox.forEach(btn => {
+                btn.checked = false
+            })
         }
     })
-})
+}
+if(btnCheckbox) {
+    btnCheckbox.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const countChecked = document.querySelectorAll('input[name=id]:checked').length
+            const totalBtn = btnCheckbox.length
+            if(countChecked === totalBtn) {
+                btnCheckAll.checked = true
+            }else {
+                btnCheckAll.checked = false
+            }
+        })
+    })
+}
+
 
 const formChangeMulti = document.querySelector("[form-change-multi]")
-const btnSubmit = formChangeMulti.querySelector("button[type=submit]")
-formChangeMulti.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const btnChecked = document.querySelectorAll('input[name=id]:checked')  
-    const action = e.target.elements.type.value
-
-    if(action === 'delete') {
-        if(btnChecked.length > 0) {
-            const isConfirm = confirm("Bạn có chắc là muốn xóa không?")
-            if(!isConfirm) {
-                return
+if(formChangeMulti) {
+    formChangeMulti.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const btnChecked = document.querySelectorAll('input[name=id]:checked')  
+        const action = e.target.elements.type.value
+    
+        if(action === 'delete') {
+            if(btnChecked.length > 0) {
+                const isConfirm = confirm("Bạn có chắc là muốn xóa không?")
+                if(!isConfirm) {
+                    return
+                }
             }
         }
-    }
-    if(btnChecked.length > 0) {
-        let ids = []
-        btnChecked.forEach((buttonId) => {
-            if(action === 'change-position') {
-                //Get position
-                const inputPosition = buttonId.closest("tr").querySelector("[input-position]")
-                ids.push(`${buttonId.value}-${inputPosition.value}`)
-            }else
-                ids.push(buttonId.value);
-        })
-        const inputIds = formChangeMulti.querySelector("input[name=ids]")
-        inputIds.value = ids.join(", ")
-        formChangeMulti.submit();
-    }
-})
+        if(btnChecked.length > 0) {
+            let ids = []
+            btnChecked.forEach((buttonId) => {
+                if(action === 'change-position') {
+                    //Get position
+                    const inputPosition = buttonId.closest("tr").querySelector("[input-position]")
+                    ids.push(`${buttonId.value}-${inputPosition.value}`)
+                }else
+                    ids.push(buttonId.value);
+            })
+            const inputIds = formChangeMulti.querySelector("input[name=ids]")
+            inputIds.value = ids.join(", ")
+            formChangeMulti.submit();
+        }
+    })
+}
+
 
 //End Change Multi Status
 
@@ -112,7 +119,6 @@ formChangeMulti.addEventListener('submit', (e) => {
 const alertSuccess = document.querySelector("[alert-success]")
 if(alertSuccess) {
     const timeClose = parseInt(alertSuccess.getAttribute("time-close"))
-    console.log(alertSuccess, timeClose);
     setTimeout(() => {
         alertSuccess.classList.remove("animate__bounceInRight")
         alertSuccess.classList.add("animate__bounceOutRight")
@@ -124,3 +130,4 @@ if(alertSuccess) {
     })
 }
 //End Alert Success
+

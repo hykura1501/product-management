@@ -1,0 +1,39 @@
+extends ../../layouts/default.pug
+block main 
+  h3(class='m-3')=pageTitle
+  .row 
+    .col-8 
+      form(
+        action=`${prefixAdmin}/products/create`
+        id="form-create-product"
+        method="POST"
+        class='m-5'
+      )
+        label(for="title") Tiêu đề 
+        input(type="text" id='title' name='title' class='form-control')
+        label(for="description") Mô tả
+        textarea(name="description" id='description' class='form-control' rows='6')
+        label(for="price") Giá
+        input(type = 'number' name="price" id='price' class='form-control')
+        label(for="discountPercentage") Giảm giá
+        input(type = 'number' name="discountPercentage" id='discountPercentage' class='form-control')
+        label(for="stock") Tồn kho
+        input(type = 'number' name="stock" id='stock' class='form-control')
+        label(for="thumbnail") Hình ảnh
+        input(type = 'text' name="thumbnail" id='thumbnail' class='form-control')
+        label(for="status") Trạng thái
+        .form-check
+          input#active.form-check-input(type='radio' name='status' value='active' checked)
+          | Hoạt động
+          label.form-check-label(for='active')
+        .form-check
+          input#inactive.form-check-input(type='radio' name='status' value='active')
+          | Dừng hoạt động
+          label.form-check-label(for='inactive')
+        label(for="position") Vị trí
+        input(type = 'number' name="position" id='position' class='form-control' placeholder='Tự động tăng')
+        button(type='submit' class='btn btn-success mt-5') Tạo sản phẩm
+  script(src="/admin/js/product.js") 
+
+    
+    
