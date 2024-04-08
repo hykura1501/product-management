@@ -37,6 +37,7 @@ module.exports.products = async (req, res) => {
   //End Pagination
 
   const products = await Product.find(find)
+    .sort({position: 'desc'})
     .limit(objectPagination.limitItem)
     .skip(objectPagination.skip);
 
@@ -55,37 +56,53 @@ module.exports.changeStatus = async (req, res) => {
   const id = req.params.id;
 
   await Product.updateOne({ _id: id }, { status: status });
-
+  req.flash('success', 'Cập nhật trạng thái sản phẩm thành công!');
   res.redirect("back");
 };
 //[PATCH] Change multi status products
 module.exports.changeMulti = async (req, res) => {
   const type = req.body.type;
-  const id = req.body.ids.split(", ");
+  const ids = req.body.ids.split(", ");
   switch (type) {
     case 'active':
       await Product.updateMany(
-        { _id: { $in: id } },
+        { _id: { $in: ids } },
         { $set: { status: type } }
       );
+      req.flash('success', 'Cập nhật trạng thái sản phẩm thành công!');
       break;
     case 'inactive':
       await Product.updateMany(
-        { _id: { $in: id } },
+        { _id: { $in: ids } },
         { $set: { status: type } }
       );
+      req.flash('success', 'Cập nhật trạng thái sản phẩm thành công!');
+      break;
+    
+    case 'delete':
+      await Product.updateMany(
+        { _id: { $in: ids } },
+        { $set: { deleted: true, deletedAt: new Date() } }
+      );
+      req.flash('success', 'Xóa sản phẩm thành công!');
+      break;
+    case 'change-position':
+      for(item of ids) {
+        const [id, position] = item.split("-")
+        await Product.updateOne({_id: id}, {position: position})
+      }
+      req.flash('success', 'Thay đổi vị trí sản phẩm thành công!');
       break;
     
     default:
       break;
   }
-  
   res.redirect('back')
 };
 //[delete] delete product item
 module.exports.delete = async (req, res) => {
   const id = req.params.id;
   await Product.updateOne({ _id: id }, { deleted: true, deletedAt: new Date() });
-
+  req.flash('success', 'Xóa sản phẩm thành công!');
   res.redirect("back");
 };

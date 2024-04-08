@@ -3,8 +3,17 @@ const route = require("./routes/client/index.route");
 const adminRoute = require("./routes/admin/index.route")
 const systemConfig = require("./config/system")
 const database = require("./config/database")
+
+//Ocerride method
 const methodOverride = require('method-override')
+
+//Body parser
 const bodyParser = require('body-parser')
+
+//Express Flash - Message Infor
+const flash = require('express-flash')
+const session = require('express-session')
+const cookieParser = require('cookie-parser')
 
 database.connect()
 
@@ -12,6 +21,10 @@ require('dotenv').config();
 
 const app = express()
 const port = process.env.PORT
+
+app.use(cookieParser('keyboard cat'));
+app.use(session({ cookie: { maxAge: 60000 }}));
+app.use(flash());
 
 app.use(methodOverride('_method'))
 // parse application/x-www-form-urlencoded

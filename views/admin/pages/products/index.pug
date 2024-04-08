@@ -3,7 +3,10 @@ include ../../mixins/filter-status.pug
 include ../../mixins/search.pug
 include ../../mixins/pagination.pug
 include ../../mixins/form-change-multi.pug
+include ../../mixins/alert-success.pug
 block main 
+  - if (messages.success)
+      +alert-success(3000)
   .ml-3
     h1 Danh sách sản phẩm
     .card   
@@ -27,6 +30,7 @@ block main
               th Hình ảnh 
               th Tên sản phẩm
               th Giá
+              th Vị trí
               th Trạng thái 
               th Hành động
           tbody 
@@ -45,6 +49,8 @@ block main
                   )
                 td=item.title
                 td="$" + item.price
+                td  
+                  input(type="number" style='width:50px' value = item.position input-position)
                 td
                   a(
                     href="javascript:;"

@@ -9,6 +9,7 @@ buttonStatus.forEach((button) => {
         }else {
             newUrl.searchParams.delete("status")
         }
+        newUrl.searchParams.delete("page")
         window.location.href = newUrl.href
     }
 })
@@ -48,6 +49,7 @@ if(buttonPage) {
 //End Pagination
 
 //Change Multi Status
+
 const btnCheckAll = document.querySelector("input[name=checkall]")
 const btnCheckbox = document.querySelectorAll("input[name=id]")
 btnCheckAll.addEventListener('click', (e) => {
@@ -61,7 +63,6 @@ btnCheckAll.addEventListener('click', (e) => {
         })
     }
 })
-
 btnCheckbox.forEach(btn => {
     btn.addEventListener('click', () => {
         const countChecked = document.querySelectorAll('input[name=id]:checked').length
@@ -76,19 +77,50 @@ btnCheckbox.forEach(btn => {
 
 const formChangeMulti = document.querySelector("[form-change-multi]")
 const btnSubmit = formChangeMulti.querySelector("button[type=submit]")
-btnSubmit.addEventListener('click', (e) => {
+formChangeMulti.addEventListener('submit', (e) => {
     e.preventDefault();
-    const btnChecked = document.querySelectorAll('input[name=id]:checked')    
+    const btnChecked = document.querySelectorAll('input[name=id]:checked')  
+    const action = e.target.elements.type.value
+
+    if(action === 'delete') {
+        if(btnChecked.length > 0) {
+            const isConfirm = confirm("Bạn có chắc là muốn xóa không?")
+            if(!isConfirm) {
+                return
+            }
+        }
+    }
     if(btnChecked.length > 0) {
         let ids = []
-        btnChecked.forEach((id) => {
-            ids.push(id.value);
+        btnChecked.forEach((buttonId) => {
+            if(action === 'change-position') {
+                //Get position
+                const inputPosition = buttonId.closest("tr").querySelector("[input-position]")
+                ids.push(`${buttonId.value}-${inputPosition.value}`)
+            }else
+                ids.push(buttonId.value);
         })
         const inputIds = formChangeMulti.querySelector("input[name=ids]")
         inputIds.value = ids.join(", ")
         formChangeMulti.submit();
     }
-    
 })
 
 //End Change Multi Status
+
+//Alert Success
+const alertSuccess = document.querySelector("[alert-success]")
+if(alertSuccess) {
+    const timeClose = parseInt(alertSuccess.getAttribute("time-close"))
+    console.log(alertSuccess, timeClose);
+    setTimeout(() => {
+        alertSuccess.classList.remove("animate__bounceInRight")
+        alertSuccess.classList.add("animate__bounceOutRight")
+    }, timeClose)
+    const buttonClose = alertSuccess.querySelector(".button-close")
+    buttonClose.addEventListener('click', () => {
+        alertSuccess.classList.remove("animate__bounceInRight")
+        alertSuccess.classList.add("animate__bounceOutRight")
+    })
+}
+//End Alert Success

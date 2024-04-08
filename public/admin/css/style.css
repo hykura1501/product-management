@@ -36,3 +36,21 @@
     text-decoration: none;
 
 }
+
+[alert-success] {
+    position: fixed;
+    right: 0;
+    top: 68px;
+    z-index: 1;
+}
+[alert-success].hidden {
+    display: none;
+}
+
+.button-close {
+    color: rgb(0, 0, 0);
+    background-color: transparent;
+    outline: none;
+    border: 0;
+    font-weight: 600;
+}
