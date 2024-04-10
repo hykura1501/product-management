@@ -26,4 +26,6 @@ router.patch(
     productsController.editPatch
 )
 
+router.get('/products/detail/:id', productsController.detail)
+
 module.exports = router

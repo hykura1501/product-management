@@ -269,3 +269,10 @@ ul{
   background-color: #e32d2c;
   color: #11f03a;
 }
+
+
+.img-thumbnail {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+}
