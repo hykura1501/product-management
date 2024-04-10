@@ -18,5 +18,12 @@ router.post(
     validate.createPost,
     productsController.createPost
 )
+router.get('/products/edit/:id', productsController.edit)
+router.patch(
+    '/products/edit/:id', 
+    upload.single('thumbnail'), 
+    validate.createPost,
+    productsController.editPatch
+)
 
 module.exports = router

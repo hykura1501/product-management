@@ -135,3 +135,42 @@ module.exports.createPost = async (req, res) => {
   req.flash('success', 'Đã tạo sản phẩm thành công!');
   res.redirect(`${configSystem.prefixAdmin}/products`)
 };
+
+//[Get] edit product
+module.exports.edit = async (req, res) => {
+  const id = req.params.id
+  const find = {
+    deleted: false,
+    _id: id
+  }
+  try {
+    const product = await Product.findOne(find)
+    res.render("admin/pages/products/edit", {
+      pageTitle: "Trang chỉnh sửa sản phẩm",
+      product: product
+    });
+  } catch (error) {
+    if(error) {
+      res.redirect(`${configSystem.prefixAdmin}/products`)
+    }
+  }
+};
+
+//[patch] edit product
+module.exports.editPatch = async (req, res) => {
+  const id = req.params.id
+  req.body.price = parseInt(req.body.price)
+  req.body.discountPercentage = parseInt(req.body.discountPercentage)
+  req.body.stock = parseInt(req.body.stock)
+  req.body.position = parseInt(req.body.position)
+  if(req.file) {
+    req.body.thumbnail = `/uploads/${req.file.filename}`
+  }
+  try {
+    await Product.updateOne({_id: id}, req.body)
+    req.flash('success', 'Cập nhật sản phẩm thành công!');
+  } catch (error) {
+    req.flash('success', 'Cập nhật sản phẩm thất bại!');
+  }
+  res.redirect(`${configSystem.prefixAdmin}/products/edit/${id}`)
+};
