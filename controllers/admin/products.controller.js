@@ -42,7 +42,7 @@ module.exports.products = async (req, res) => {
     .sort({position: 'desc'})
     .limit(objectPagination.limitItem)
     .skip(objectPagination.skip);
-
+  // console.log(products);
   res.render("admin/pages/products/index", {
     pageTitle: "Trang danh sách sản phẩm",
     products: products,

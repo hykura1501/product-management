@@ -16,7 +16,7 @@ block main
                 .info-price   
                   h5.price.old $#{item.price}
                   h5.price.sale $#{Math.floor(item.price * (1 - item.discountPercentage/100))}
-                a(href=`products/detail/${item.slug}`)
+                a(href=`products/${item.slug}`)
                   p.title #{item.title}
                 h5.discountPer -#{item.discountPercentage}% 
 

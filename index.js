@@ -37,10 +37,10 @@ app.locals.prefixAdmin = systemConfig.prefixAdmin
 route(app)
 adminRoute(app)
 
-app.set('views', './views')
+app.set('views', `${__dirname}/views`)
 app.set('view engine', 'pug')
 
-app.use(express.static('public'))
+app.use(express.static(`${__dirname}/public`))
 
 app.listen(port, () => {
     console.log("Runnnnn");
