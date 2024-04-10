@@ -115,19 +115,31 @@ if(formChangeMulti) {
 
 //End Change Multi Status
 
-//Alert Success
-const alertSuccess = document.querySelector("[alert-success]")
-if(alertSuccess) {
-    const timeClose = parseInt(alertSuccess.getAttribute("time-close"))
+//Show alert
+const showAlert = document.querySelector("[show-alert]")
+if(showAlert) {
+    const timeClose = parseInt(showAlert.getAttribute("time-close"))
     setTimeout(() => {
-        alertSuccess.classList.remove("animate__bounceInRight")
-        alertSuccess.classList.add("animate__bounceOutRight")
+        showAlert.classList.remove("animate__bounceInRight")
+        showAlert.classList.add("animate__bounceOutRight")
     }, timeClose)
-    const buttonClose = alertSuccess.querySelector(".button-close")
+    const buttonClose = showAlert.querySelector(".button-close")
     buttonClose.addEventListener('click', () => {
-        alertSuccess.classList.remove("animate__bounceInRight")
-        alertSuccess.classList.add("animate__bounceOutRight")
+        showAlert.classList.remove("animate__bounceInRight")
+        showAlert.classList.add("animate__bounceOutRight")
     })
 }
-//End Alert Success
+//End show alert
 
+//preview image When create product
+const inputUploadImage = document.querySelector('[input-upload-image]');
+if(inputUploadImage) {
+    inputUploadImage.addEventListener("change", (event) => {
+        const output = document.querySelector('[img-preview]')
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function() {
+          URL.revokeObjectURL(output.src) // free memory
+        }
+    })
+}
+//End preview image When create product

@@ -1,0 +1,16 @@
+mixin alert-success(time)
+  - if (messages.success)
+    div(
+      class='alert alert-success animate__animated animate__bounceInRight' 
+      time-close=time 
+      show-alert
+    )=messages.success
+      button(class='button-close') x
+mixin alert-error(time)
+  - if (messages.error)
+    div(
+      class='alert alert-danger animate__animated animate__bounceInRight' 
+      time-close=time 
+      show-alert
+    )=messages.error
+      button(class='button-close') x

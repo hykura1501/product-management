@@ -4,6 +4,7 @@ const searchHelper = require("../../helpers/search");
 const paginationHelper = require("../../helpers/pagination");
 const configSystem = require("../../config/system")
 
+
 //[GET] Get products
 module.exports.products = async (req, res) => {
   const find = {
@@ -125,6 +126,9 @@ module.exports.createPost = async (req, res) => {
   }else {
     const countProducts = await Product.countDocuments()
     req.body.position = countProducts + 1
+  }
+  if(req.file) {
+    req.body.thumbnail = `/uploads/${req.file.filename}`
   }
   const product = new Product(req.body)
   await product.save()
