@@ -6,22 +6,17 @@ block main
   .row 
     .col-8 
       form(
-        action=`${prefixAdmin}/products/create`
-        id="form-create-product"
+        action=`${prefixAdmin}/products-category/create`
         method="POST"
         class='m-5'
         enctype="multipart/form-data"
       )
         label(for="title") Tiêu đề 
         input(type="text" id='title' name='title' class='form-control')
+        label(for="parent_id") Danh mục cha
+        input(type="text" id='parent_id' name='parent_id' class='form-control')
         label(for="description") Mô tả
         textarea(name="description" id='description' class='form-control textarea-tinymce' rows='6')
-        label(for="price") Giá
-        input(type = 'number' name="price" id='price' class='form-control' value=0)
-        label(for="discountPercentage") % Giảm giá
-        input(type = 'number' name="discountPercentage" id='discountPercentage' class='form-control' value=0)
-        label(for="stock") Tồn kho
-        input(type = 'number' name="stock" id='stock' class='form-control' value=0)
         label(for="thumbnail") Hình ảnh
         input(type = 'file' name="thumbnail" id='thumbnail' class='form-control-file' accept='image/*' input-upload-image)
         img(src="", alt="" img-preview class='img-thumbnail')
@@ -37,7 +32,7 @@ block main
           label.form-check-label(for='inactive')
         label(for="position") Vị trí
         input(type = 'number' name="position" id='position' class='form-control' placeholder='Tự động tăng')
-        button(type='submit' class='btn btn-success mt-5') Tạo sản phẩm
+        button(type='submit' class='btn btn-success mt-5') Tạo danh mục
   script(src="/admin/js/product.js") 
 
     

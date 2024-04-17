@@ -143,3 +143,38 @@ if(inputUploadImage) {
     })
 }
 //End preview image When create product
+
+
+//Sort
+const sort = document.querySelector("div[sort]")
+if(sort) {
+    const sortSelect = sort.querySelector("[sort-select]")
+    const sortClear = sort.querySelector("[sort-clear]")
+    let url = new URL(window.location.href)
+    sortSelect.addEventListener("change", () => {
+        const sortQuery = sortSelect.value.split("-");
+        const [sortKey, sortValue] = sortQuery
+        url.searchParams.set("sortKey", sortKey)
+        url.searchParams.set("sortValue", sortValue)
+
+        window.location.href = url.href
+
+    }) 
+    
+    const sortKey = url.searchParams.get("sortKey");
+    const sortValue = url.searchParams.get("sortValue");
+    
+    if(sortKey && sortValue) {
+        const selected = sortKey + "-" + sortValue
+        const isSelected = sort.querySelector(`option[value=${selected}]`)
+        isSelected.selected = true;
+
+        sortClear.addEventListener("click", () => {
+            url.searchParams.delete("sortKey");
+            url.searchParams.delete("sortValue");
+            window.location.href = url.href
+        })
+    }
+
+}
+//End Sort

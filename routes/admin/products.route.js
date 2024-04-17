@@ -9,10 +9,12 @@ const upload = multer();
 const uploadCloud = require("../../middlewares/admin/uploadCloud.middleware");
 
 router.get("/products", productsController.products);
+
 router.patch(
   "/products/change-status/:status/:id",
   productsController.changeStatus
 );
+
 router.patch("/products/change-multi", productsController.changeMulti);
 
 router.delete("/products/delete/:id", productsController.delete);
@@ -26,6 +28,7 @@ router.post(
   validate.createPost,
   productsController.createPost
 );
+
 router.get("/products/edit/:id", productsController.edit);
 
 router.patch(

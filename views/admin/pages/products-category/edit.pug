@@ -2,27 +2,21 @@ extends ../../layouts/default.pug
 include ../../mixins/alert.pug
 block main 
   +alert-error(3000)
-  +alert-success(3000)
   h3(class='m-3')=pageTitle
   .row 
     .col-8 
       form(
-        action=`${prefixAdmin}/products/edit/${product.id}?_method=PATCH`
-        id="form-edit-product"
+        action=`${prefixAdmin}/products-category/edit/${product.id}?_method=PATCH`
         method="POST"
         class='m-5'
         enctype="multipart/form-data"
       )
         label(for="title") Tiêu đề 
         input(type="text" id='title' name='title' class='form-control' value=product.title)
+        label(for="parent_id") Danh mục cha
+        input(type="text" id='parent_id' name='parent_id' class='form-control' value=product.parent_id)
         label(for="description") Mô tả
         textarea(name="description" id='description' class='form-control textarea-tinymce' rows='6')=product.description
-        label(for="price") Giá
-        input(type = 'number' name="price" id='price' class='form-control' value=product.price)
-        label(for="discountPercentage") % Giảm giá
-        input(type = 'number' name="discountPercentage" id='discountPercentage' class='form-control' value=product.discountPercentage)
-        label(for="stock") Tồn kho
-        input(type = 'number' name="stock" id='stock' class='form-control' value=product.stock)
         label(for="thumbnail") Hình ảnh
         input(type = 'file' name="thumbnail" id='thumbnail' class='form-control-file' accept='image/*' input-upload-image)
         img(src=product.thumbnail, alt="" img-preview class='img-thumbnail')
@@ -38,7 +32,7 @@ block main
           label.form-check-label(for='inactive')
         label(for="position") Vị trí
         input(type = 'number' name="position" id='position' class='form-control' placeholder='Tự động tăng' value=product.position)
-        button(type='submit' class='btn btn-success mt-5') Cập nhập
+        button(type='submit' class='btn btn-success mt-5') Cập nhật danh mục
   script(src="/admin/js/product.js") 
 
     

@@ -1,0 +1,12 @@
+mixin sort()
+  .row 
+    .col-3
+      div(sort class='w-105 d-flex')
+        select(name='sort-key' class='form-control' sort-select)
+          option(value="position-desc") Vị trí giảm dần 
+          option(value="position-asc") Vị trí tăng dần 
+          option(value="price-desc") Giá giảm dần 
+          option(value="price-asc") Giá tăng dần 
+          option(value="title-desc") Từ Z-A
+          option(value="title-asc") Từ A-Z
+        button(class='btn btn-danger ml-2' sort-clear) Clear
