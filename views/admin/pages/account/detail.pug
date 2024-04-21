@@ -1,0 +1,39 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+block main 
+  h3(class='m-3')=pageTitle
+  .row 
+    .col-8.pl-5
+      if(record.fullName) 
+        p Họ và tên: 
+          b 
+            span=record.fullName
+      if(record.email) 
+        p Email: 
+          b 
+            span=record.email
+      if(record.avatar) 
+        p Ảnh đại diện: 
+          br
+          img(src=record.avatar alt=record.fullName img-preview class='img-thumbnail')
+      if(record.phone) 
+        p Số điện thoại: 
+          b 
+            span=record.phone
+      if(record.role) 
+        p Vai trò: 
+          b 
+            span=record.role.title
+      if(record.status) 
+        p Trạng thái: 
+          a(
+            href='javascript:;'
+            class=`badge ${record.status === "active" ? "badge-success" : "badge-danger"}`
+            ) #{record.status === "active" ? "Hoạt động" : "Dừng hoạt động"}
+      a(
+        href= `${prefixAdmin}/accounts/edit/${record.id}`
+        class='btn btn-warning'
+      ) Chỉnh sửa
+  script(src="/admin/js/product.js") 
+
+
