@@ -1,0 +1,21 @@
+extends ../../layouts/default.pug
+block main 
+  h3(class='m-3') Chi tiết nhóm quyền
+  .row 
+    .col-8.pl-5
+      if(record.title) 
+        p Tiêu đề: 
+          b 
+            span=record.title
+
+      if(record.description) 
+        p Mô tả: 
+          b 
+            span=record.description
+      a(
+        href= `${prefixAdmin}/roles/edit/${record.id}`
+        class='btn btn-warning'
+      ) Chỉnh sửa
+  script(src="/admin/js/product.js") 
+
+

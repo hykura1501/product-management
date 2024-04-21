@@ -1,0 +1,19 @@
+const express = require("express");
+const router = express.Router();
+
+const controller = require("../../controllers/admin/role.controller");
+const multer = require("multer");
+const upload = multer();
+
+router.get("/roles", controller.index);
+router.get("/roles/create", controller.create);
+router.post(
+  "/roles/create",
+  controller.createPost
+);
+router.delete("/roles/delete/:id", controller.delete);
+router.get("/roles/detail/:id", controller.detail);
+router.get("/roles/edit/:id", controller.edit);
+router.patch("/roles/edit/:id", controller.editPatch);
+
+module.exports = router;

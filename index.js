@@ -29,8 +29,11 @@ app.use(session({ cookie: { maxAge: 60000 }}));
 app.use(flash());
 
 app.use(methodOverride('_method'))
+
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
+// parse application/json
+app.use(bodyParser.json())
 
 app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
 

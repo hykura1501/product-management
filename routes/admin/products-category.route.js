@@ -22,7 +22,7 @@ router.get("/products-category/edit/:id", controllers.edit);
 
 router.patch(
   "/products-category/edit/:id",
-  upload.single("thumbnail"), 
+  upload.single("thumbnail"),
   uploadCloud.uploadCloud,
   controllers.editPatch
 );
