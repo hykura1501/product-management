@@ -1,5 +1,6 @@
 extends ../../layouts/default.pug
 include ../../mixins/alert.pug
+include ../../mixins/product-category-tree.pug
 block main 
   +alert-error(3000)
   h3(class='m-3')=pageTitle
@@ -14,6 +15,11 @@ block main
       )
         label(for="title") Tiêu đề 
         input(type="text" id='title' name='title' class='form-control')
+        label(for="product_category_id") Danh mục
+        select(name="product_category_id" class="form-control" id="product_category_id")
+          option(value="" selected disabled) -- Chọn danh mục --
+          if (category)
+            +product-category-tree(category)
         label(for="description") Mô tả
         textarea(name="description" id='description' class='form-control textarea-tinymce' rows='6')
         label(for="price") Giá

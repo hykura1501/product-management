@@ -10,6 +10,10 @@ block main
         p Tiêu đề: 
           b 
             span=product.title
+      if(product.category) 
+        p Danh mục: 
+          b 
+            span=product.category
       if(product.description) 
         p Mô tả: 
           b 

@@ -4,6 +4,7 @@ include ../../mixins/search.pug
 include ../../mixins/form-change-multi.pug
 include ../../mixins/alert.pug
 include ../../mixins/sort.pug
+include ../../mixins/table-tree.pug
 block main 
   +alert-success(3000)
   .ml-3
@@ -40,41 +41,8 @@ block main
               th Trạng thái 
               th Hành động
           tbody 
-            each item, index in records
-              tr 
-                td  
-                  input(type="checkbox" name = 'id' value=item.id)
-                td= index + 1
-                td 
-                  img(
-                    src=item.thumbnail,
-                    alt=item.title,
-                    srcset="",
-                    width="100px",
-                    height="auto"
-                  )
-                td=item.title
-                td  
-                  input(type="number" style='width:50px' value = item.position input-position)
-                td
-                  a(
-                    href="javascript:;"
-                    class=`badge ${item.status === "active" ? "badge-success" : "badge-danger"}`
-                    button-change-status
-                    data-status = item.status
-                    data-id = item.id
-                    ) #{item.status === "active" ? "Hoạt động" : "Dừng hoạt động"}
-                    
-                td 
-                  a(
-                    href = `${prefixAdmin}/products-category/detail/${item.id}`
-                    class="btn btn-secondary btn-sm mr-1"
-                    ) Chi tiết
-                  a(
-                    href = `${prefixAdmin}/products-category/edit/${item.id}`
-                    class="btn btn-warning btn-sm"
-                    ) Sửa
-                  button(class="btn btn-danger btn-sm ml-1" button-delete-item data-id = item.id) Xóa
+            if records  
+              +table-tree(records)
     form(
       action = ""
       method = "POST"

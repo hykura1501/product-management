@@ -1,5 +1,6 @@
 extends ../../layouts/default.pug
 include ../../mixins/alert.pug
+include ../../mixins/product-category-tree.pug
 block main 
   +alert-error(3000)
   +alert-success(3000)
@@ -15,6 +16,10 @@ block main
       )
         label(for="title") Tiêu đề 
         input(type="text" id='title' name='title' class='form-control' value=product.title)
+        select(name="product_category_id" class="form-control" id="product_category_id")
+          option(value="" selected disabled) -- Chọn danh mục --
+          if (category)
+            +product-category-tree(category)
         label(for="description") Mô tả
         textarea(name="description" id='description' class='form-control textarea-tinymce' rows='6')=product.description
         label(for="price") Giá

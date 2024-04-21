@@ -1,37 +1,40 @@
 extends ../../layouts/default.pug
 include ../../mixins/alert.pug
+include ../../mixins/product-category-tree.pug
 block main 
   +alert-error(3000)
   h3(class='m-3')=pageTitle
   .row 
     .col-8 
       form(
-        action=`${prefixAdmin}/products-category/edit/${product.id}?_method=PATCH`
+        action=`${prefixAdmin}/products-category/edit/${record.id}?_method=PATCH`
         method="POST"
         class='m-5'
         enctype="multipart/form-data"
       )
         label(for="title") Tiêu đề 
-        input(type="text" id='title' name='title' class='form-control' value=product.title)
-        label(for="parent_id") Danh mục cha
-        input(type="text" id='parent_id' name='parent_id' class='form-control' value=product.parent_id)
+        input(type="text" id='title' name='title' class='form-control' value=record.title)
+        select(name="parent_id" class="form-control" id="parent_id")
+          option(value="" selected disabled) -- Chọn danh mục cha --
+          if (records)
+            +product-category-tree(records)
         label(for="description") Mô tả
-        textarea(name="description" id='description' class='form-control textarea-tinymce' rows='6')=product.description
+        textarea(name="description" id='description' class='form-control textarea-tinymce' rows='6')=record.description
         label(for="thumbnail") Hình ảnh
         input(type = 'file' name="thumbnail" id='thumbnail' class='form-control-file' accept='image/*' input-upload-image)
-        img(src=product.thumbnail, alt="" img-preview class='img-thumbnail')
+        img(src=record.thumbnail, alt="" img-preview class='img-thumbnail')
         br
         label(for="status") Trạng thái
         .form-check
-          input#active.form-check-input(type='radio' name='status' value='active' checked=(product.status === 'active'))
+          input#active.form-check-input(type='radio' name='status' value='active' checked=(record.status === 'active'))
           | Hoạt động
           label.form-check-label(for='active')
         .form-check
-          input#inactive.form-check-input(type='radio' name='status' value='inactive' checked=(product.status === 'inactive'))
+          input#inactive.form-check-input(type='radio' name='status' value='inactive' checked=(record.status === 'inactive'))
           | Dừng hoạt động
           label.form-check-label(for='inactive')
         label(for="position") Vị trí
-        input(type = 'number' name="position" id='position' class='form-control' placeholder='Tự động tăng' value=product.position)
+        input(type = 'number' name="position" id='position' class='form-control' placeholder='Tự động tăng' value=record.position)
         button(type='submit' class='btn btn-success mt-5') Cập nhật danh mục
   script(src="/admin/js/product.js") 
 

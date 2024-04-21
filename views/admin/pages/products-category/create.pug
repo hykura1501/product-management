@@ -1,5 +1,6 @@
 extends ../../layouts/default.pug
 include ../../mixins/alert.pug
+include ../../mixins/product-category-tree.pug
 block main 
   +alert-error(3000)
   h3(class='m-3')=pageTitle
@@ -14,7 +15,10 @@ block main
         label(for="title") Tiêu đề 
         input(type="text" id='title' name='title' class='form-control')
         label(for="parent_id") Danh mục cha
-        input(type="text" id='parent_id' name='parent_id' class='form-control')
+        select(name="parent_id" class="form-control" id="parent_id")
+          option(value="" selected disabled) -- Chọn danh mục cha --
+          if (records)
+            +product-category-tree(records)
         label(for="description") Mô tả
         textarea(name="description" id='description' class='form-control textarea-tinymce' rows='6')
         label(for="thumbnail") Hình ảnh
