@@ -8,37 +8,37 @@ const upload = multer();
 
 const uploadCloud = require("../../middlewares/admin/uploadCloud.middleware");
 
-router.get("/products", productsController.products);
+router.get("/", productsController.products);
 
 router.patch(
-  "/products/change-status/:status/:id",
+  "/change-status/:status/:id",
   productsController.changeStatus
 );
 
-router.patch("/products/change-multi", productsController.changeMulti);
+router.patch("/change-multi", productsController.changeMulti);
 
-router.delete("/products/delete/:id", productsController.delete);
+router.delete("/delete/:id", productsController.delete);
 
-router.get("/products/create", productsController.create);
+router.get("/create", productsController.create);
 
 router.post(
-  "/products/create",
+  "/create",
   upload.single("thumbnail"),
   uploadCloud.uploadCloud,
   validate.createPost,
   productsController.createPost
 );
 
-router.get("/products/edit/:id", productsController.edit);
+router.get("/edit/:id", productsController.edit);
 
 router.patch(
-  "/products/edit/:id",
+  "/edit/:id",
   upload.single("thumbnail"), 
   uploadCloud.uploadCloud,
   validate.createPost,
   productsController.editPatch
 );
 
-router.get("/products/detail/:id", productsController.detail);
+router.get("/detail/:id", productsController.detail);
 
 module.exports = router;

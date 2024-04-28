@@ -6,20 +6,20 @@ const multer = require("multer");
 const upload = multer();
 const uploadCloud = require("../../middlewares/admin/uploadCloud.middleware");
 
-router.get("/accounts", controller.index);
-router.get("/accounts/create", controller.create);
-router.patch("/accounts/change-status/:status/:id", controller.changeStatus);
+router.get("/", controller.index);
+router.get("/create", controller.create);
+router.patch("/change-status/:status/:id", controller.changeStatus);
 router.post(
-  "/accounts/create",
+  "/create",
   upload.single("avatar"),
   uploadCloud.uploadCloud,
   controller.createPost
 );
-router.get("/accounts/edit/:id", controller.edit);
-router.get("/accounts/detail/:id", controller.detail);
-router.delete("/accounts/delete/:id", controller.delete);
+router.get("/edit/:id", controller.edit);
+router.get("/detail/:id", controller.detail);
+router.delete("/delete/:id", controller.delete);
 router.patch(
-  "/accounts/edit/:id",
+  "/edit/:id",
   upload.single("avatar"),
   uploadCloud.uploadCloud,
   controller.editPatch
