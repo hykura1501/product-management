@@ -1,18 +1,19 @@
 extends ../../layouts/default.pug
 block main 
-  h3(class='m-3')=pageTitle
-  .row 
-    .col-8 
-      form(
-        action=`${prefixAdmin}/roles/create`
-        method="POST"
-        class='m-5'
-      )
-        label(for="title") Tiêu đề 
-        input(type="text" id="title" name="title" class='form-control')
-        label(for="description") Mô tả
-        input(type="text" id="description" name="description" class='form-control')
-        button(type="submit" class='btn btn-success mt-5') Tạo nhóm quyền
+  if(role.permissions.includes("role_create"))
+    h3(class='m-3')=pageTitle
+    .row 
+      .col-8 
+        form(
+          action=`${prefixAdmin}/roles/create`
+          method="POST"
+          class='m-5'
+        )
+          label(for="title") Tiêu đề 
+          input(type="text" id="title" name="title" class='form-control')
+          label(for="description") Mô tả
+          input(type="text" id="description" name="description" class='form-control')
+          button(type="submit" class='btn btn-success mt-5') Tạo nhóm quyền
         
   script(src="/admin/js/product.js") 
 

@@ -2,76 +2,131 @@ extends ../../layouts/default.pug
 include ../../mixins/alert.pug
 block main 
   +alert-success(3000)
-  .ml-3
-    h4 Nhóm quyền
-    div.d-none(records-permissions=records)
-    .card   
-      .card-body 
-        .card-title(class="d-flex justify-content-between") Danh sách
-          button(class="btn btn-primary" btn-submit) Cập nhật
-        table.table.table-hover.table-sm.table-role
-          thead 
-            tr  
-              th Tính năng
-              each item in records
-                th= item.title
-          tbody 
-            tr 
-              each item in records
-                td.d-none
-                  input(data-name="id" value=item.id)
-            tr 
-              td
-                b Danh mục sản phẩm
-            tr(data-name="product-category_view")
-              td Xem
-              each item in records
+  if(role.permissions.includes("role_permission"))
+    .ml-3
+      h4 Nhóm quyền
+      div.d-none(records-permissions=records)
+      .card   
+        .card-body 
+          .card-title(class="d-flex justify-content-between") Danh sách
+            button(class="btn btn-primary" btn-submit) Cập nhật
+          table.table.table-hover.table-sm.table-role
+            thead 
+              tr  
+                th Tính năng
+                each item in records
+                  th= item.title
+            tbody 
+              tr 
+                each item in records
+                  td.d-none
+                    input(data-name="id" value=item.id)
+              tr 
                 td
-                  input(type="checkbox")
-            tr(data-name="product-category_edit")
-              td Sửa
-              each item in records
+                  b Danh mục sản phẩm
+              tr(data-name="product-category_view")
+                td Xem
+                each item in records
+                  td
+                    input(type="checkbox")
+              tr(data-name="product-category_edit")
+                td Sửa
+                each item in records
+                  td
+                    input(type="checkbox")
+              tr(data-name="product-category_create")
+                td Thêm mới
+                each item in records
+                  td
+                    input(type="checkbox")
+              tr(data-name="product-category_delete")
+                td Xóa
+                each item in records
+                  td
+                    input(type="checkbox")
+              //Sản phẩm
+              tr 
                 td
-                  input(type="checkbox")
-            tr(data-name="product-category_create")
-              td Thêm mới
-              each item in records
+                  b Sản phẩm
+              tr(data-name="product_view")
+                td Xem
+                each item in records
+                  td
+                    input(type="checkbox")
+              tr(data-name="product_edit")
+                td Sửa
+                each item in records
+                  td
+                    input(type="checkbox")
+              tr(data-name="product_create")
+                td Thêm mới
+                each item in records
+                  td
+                    input(type="checkbox")
+              tr(data-name="product_delete")
+                td Xóa
+                each item in records
+                  td
+                    input(type="checkbox")
+              //Nhóm quyền
+              tr 
                 td
-                  input(type="checkbox")
-            tr(data-name="product-category_delete")
-              td Xóa
-              each item in records
+                  b Nhóm quyền
+              tr(data-name="role_view")
+                td Xem
+                each item in records
+                  td
+                    input(type="checkbox")
+              tr(data-name="role_edit")
+                td Sửa
+                each item in records
+                  td
+                    input(type="checkbox")
+              tr(data-name="role_create")
+                td Thêm mới
+                each item in records
+                  td
+                    input(type="checkbox")
+              tr(data-name="role_delete")
+                td Xóa
+                each item in records
+                  td
+                    input(type="checkbox")
+              tr(data-name="role_permission")
+                td Phân quyền
+                each item in records
+                  td
+                    input(type="checkbox")
+              
+              //Tài khoản
+              tr 
                 td
-                  input(type="checkbox")
-            //Sản phẩm
-            tr 
-              td
-                b Sản phẩm
-            tr(data-name="product_view")
-              td Xem
-              each item in records
-                td
-                  input(type="checkbox")
-            tr(data-name="product_edit")
-              td Sửa
-              each item in records
-                td
-                  input(type="checkbox")
-            tr(data-name="product_create")
-              td Thêm mới
-              each item in records
-                td
-                  input(type="checkbox")
-            tr(data-name="product_delete")
-              td Xóa
-              each item in records
-                td
-                  input(type="checkbox")
+                  b Tài khoản
+              tr(data-name="account_view")
+                td Xem
+                each item in records
+                  td
+                    input(type="checkbox")
+              tr(data-name="account_edit")
+                td Sửa
+                each item in records
+                  td
+                    input(type="checkbox")
+              tr(data-name="account_create")
+                td Thêm mới
+                each item in records
+                  td
+                    input(type="checkbox")
+              tr(data-name="account_delete")
+                td Xóa
+                each item in records
+                  td
+                    input(type="checkbox")
 
-      form.d-none(
-        action=`${prefixAdmin}/roles/permissions?_method=PATCH`
-        form-edit-role
-        method="POST"
-      )
-        input(type="text" name="permissions" input-permissions)
+        form.d-none(
+          action=`${prefixAdmin}/roles/permissions?_method=PATCH`
+          form-edit-role
+          method="POST"
+        )
+          input(type="text" name="permissions" input-permissions)
   script(src="/admin/js/role.js") 

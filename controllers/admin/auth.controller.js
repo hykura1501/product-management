@@ -5,7 +5,7 @@ const md5 = require("md5");
 module.exports.login = async (req, res) => {
   const token = req.cookies.token;
   if(token) {
-    const user = await Account.findOne({token: token})
+    const user = await Account.findOne({token: token, status: "active", deleted: false}).select("-password")
     if(user) {
       res.redirect(`${systemConfig.prefixAdmin}/dashboard`)
     }else {

@@ -2,20 +2,21 @@ extends ../../layouts/default.pug
 include ../../mixins/alert.pug
 block main 
   +alert-success(3000)
-  h3(class='m-3')=pageTitle
-  .row 
-    .col-8 
-      form(
-        action=`${prefixAdmin}/roles/edit/${record.id}?_method=PATCH`
-        method="POST"
-        class='m-5'
-      )
-        label(for="title") Tiêu đề 
-        input(type="text" id="title" name="title" class='form-control' value=record.title)
-        label(for="description") Mô tả
-        input(type="text" id="description" name="description" class='form-control' value=record.description)
-        button(type="submit" class='btn btn-success mt-5') Cập nhật
-        
+  if(role.permissions.includes("role_edit"))
+    h3(class='m-3')=pageTitle
+    .row 
+      .col-8 
+        form(
+          action=`${prefixAdmin}/roles/edit/${record.id}?_method=PATCH`
+          method="POST"
+          class='m-5'
+        )
+          label(for="title") Tiêu đề 
+          input(type="text" id="title" name="title" class='form-control' value=record.title)
+          label(for="description") Mô tả
+          input(type="text" id="description" name="description" class='form-control' value=record.description)
+          button(type="submit" class='btn btn-success mt-5') Cập nhật
+          
   script(src="/admin/js/product.js") 
 
     

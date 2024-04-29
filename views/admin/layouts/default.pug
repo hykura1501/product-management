@@ -6,12 +6,12 @@ html
     link(rel="stylesheet" href="/admin/css/style.css")
     link( rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css")
   body 
-
-    include ../partials/header.pug
-    .body 
-      include ../partials/sider.pug
-      .main 
-        block main
+    if(role.permissions.length > 0)
+      include ../partials/header.pug
+      .body 
+        include ../partials/sider.pug
+        .main 
+          block main
 
     script(src="/tinymce/tinymce.min.js") 
     script(src="/admin/js/tinymce-config.js") 
