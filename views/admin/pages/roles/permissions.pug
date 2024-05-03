@@ -122,6 +122,25 @@ block main
                 each item in records
                   td
                     input(type="checkbox")
+              //Thùng rác
+              tr 
+                td
+                  b Thùng rác
+              tr(data-name="recycel-bin_view")
+                td Xem
+                each item in records
+                  td
+                    input(type="checkbox")
+              tr(data-name="recycel-bin_restore")
+                td Khôi phục
+                each item in records
+                  td
+                    input(type="checkbox")
+              tr(data-name="recycel-bin_remove")
+                td Xóa vĩnh viễn
+                each item in records
+                  td
+                    input(type="checkbox")
 
         form.d-none(
           action=`${prefixAdmin}/roles/permissions?_method=PATCH`

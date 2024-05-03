@@ -2,112 +2,121 @@ extends ../../layouts/default.pug
 include ../../mixins/alert.pug
 include ../../mixins/date-format.pug
 block main 
-  +alert-success(3000)
-  .ml-3
-    h4 Thùng rác
-    .card   
-    .card-body 
-      .card-title Danh sách
-      //Sản phẩm
-      table.table.table-hover.table-sm 
-        b Sản phẩm
-        thead 
-          th Tiêu đề
-          th Hình ảnh 
-          th Xóa bởi 
-          th Hành động
-        tbody 
-          each item in products
-            tr 
-              td=item.title
-              td 
-                img(src=item.thumbnail alt=item.title img-preview class='img-thumbnail') 
-              td
-                if(item.userDeleted)
-                  b=item.userDeleted
-                  +toDate(item.deletedBy.deletedAt)
-                  +toTime(item.deletedBy.deletedAt)
-              td 
-                button(class="btn btn-warning" button-restore-item data-id=item.id data-type="products") Khôi phục
-                button(class="btn btn-danger ml-2" button-remove-item data-id=item.id data-type="products") Xóa vĩnh viễn
+  if(role.permissions.includes("recycel-bin_view"))
+    +alert-success(3000)
+    .ml-3
+      h4 Thùng rác
+      .card   
+      .card-body 
+        .card-title Danh sách
+        //Sản phẩm
+        table.table.table-hover.table-sm 
+          b Sản phẩm
+          thead 
+            th Tiêu đề
+            th Hình ảnh 
+            th Xóa bởi 
+            th Hành động
+          tbody 
+            each item in products
+              tr 
+                td=item.title
+                td 
+                  img(src=item.thumbnail alt=item.title img-preview class='img-thumbnail') 
+                td
+                  if(item.userDeleted)
+                    b=item.userDeleted
+                    +toDate(item.deletedBy.deletedAt)
+                    +toTime(item.deletedBy.deletedAt)
+                td 
+                  if(role.permissions.includes("recycel-bin_restore"))
+                    button(class="btn btn-warning" button-restore-item data-id=item.id data-type="products") Khôi phục
+                  if(role.permissions.includes("recycel-bin_remove"))
+                    button(class="btn btn-danger ml-2" button-remove-item data-id=item.id data-type="products") Xóa vĩnh viễn
 
-      // Danh mục sản phẩm
-      table.table.table-hover.table-sm 
-        b Danh mục sản phẩm
-        thead 
-          th Tiêu đề
-          th Hình ảnh 
-          th Xóa bởi 
-          th Hành động
-        tbody 
-          each item in productsCategory
-            tr 
-              td=item.title
-              td 
-                img(src=item.thumbnail alt=item.title img-preview class='img-thumbnail') 
-              td 
-                if(item.userDeleted)
-                  b=item.userDeleted
-                  +toDate(item.deletedBy.deletedAt)
-                  +toTime(item.deletedBy.deletedAt)
-              td 
-                button(class="btn btn-warning" button-restore-item data-id=item.id data-type="products-category") Khôi phục
-                button(class="btn btn-danger ml-2" button-remove-item data-id=item.id data-type="products-category") Xóa vĩnh viễn
+        // Danh mục sản phẩm
+        table.table.table-hover.table-sm 
+          b Danh mục sản phẩm
+          thead 
+            th Tiêu đề
+            th Hình ảnh 
+            th Xóa bởi 
+            th Hành động
+          tbody 
+            each item in productsCategory
+              tr 
+                td=item.title
+                td 
+                  img(src=item.thumbnail alt=item.title img-preview class='img-thumbnail') 
+                td 
+                  if(item.userDeleted)
+                    b=item.userDeleted
+                    +toDate(item.deletedBy.deletedAt)
+                    +toTime(item.deletedBy.deletedAt)
+                td 
+                  if(role.permissions.includes("recycel-bin_restore"))
+                    button(class="btn btn-warning" button-restore-item data-id=item.id data-type="products-category") Khôi phục
+                  if(role.permissions.includes("recycel-bin_remove"))
+                    button(class="btn btn-danger ml-2" button-remove-item data-id=item.id data-type="products-category") Xóa vĩnh viễn
 
-      // Nhóm quyền          
-      table.table.table-hover.table-sm 
-        b Nhóm quyền 
-        thead 
-          th Tên nhóm quyền
-          th Mô tả
-          th Xóa bởi 
-          th Hành động
-        tbody 
-          each item in roles
-            tr 
-              td=item.title
-              td=item.description
-              td 
-                if(item.userDeleted)
-                  b=item.userDeleted
-                  +toDate(item.deletedBy.deletedAt)
-                  +toTime(item.deletedBy.deletedAt)
-              td 
-                button(class="btn btn-warning" button-restore-item data-id=item.id data-type="roles") Khôi phục
-                button(class="btn btn-danger ml-2" button-remove-item data-id=item.id data-type="roles") Xóa vĩnh viễn
+        // Nhóm quyền          
+        table.table.table-hover.table-sm 
+          b Nhóm quyền 
+          thead 
+            th Tên nhóm quyền
+            th Mô tả
+            th Xóa bởi 
+            th Hành động
+          tbody 
+            each item in roles
+              tr 
+                td=item.title
+                td=item.description
+                td 
+                  if(item.userDeleted)
+                    b=item.userDeleted
+                    +toDate(item.deletedBy.deletedAt)
+                    +toTime(item.deletedBy.deletedAt)
+                td 
+                  if(role.permissions.includes("recycel-bin_restore"))
+                    button(class="btn btn-warning" button-restore-item data-id=item.id data-type="roles") Khôi phục
+                  if(role.permissions.includes("recycel-bin_remove"))
+                    button(class="btn btn-danger ml-2" button-remove-item data-id=item.id data-type="roles") Xóa vĩnh viễn
 
-      //Tài khoản          
-      table.table.table-hover.table-sm 
-        b Tài khoản
-        thead 
-          th Tên
-          th Email
-          th Xóa bởi 
-          th Hành động
-        tbody 
-          each item in accounts
-            tr 
-              td=item.fullName
-              td=item.email
-              td
-                if(item.userDeleted)
-                  b=item.userDeleted
-                  +toDate(item.deletedBy.deletedAt)
-                  +toTime(item.deletedBy.deletedAt)
-              td 
-                button(class="btn btn-warning" button-restore-item data-id=item.id data-type="accounts") Khôi phục
-                button(class="btn btn-danger ml-2" button-remove-item data-id=item.id data-type="accounts") Xóa vĩnh viễn
-          
-    form(
-      action = ""
-      method = "POST"
-      id = "form-remove-item"
-      data-path = `${prefixAdmin}/recycle-bin/delete`
-    )
-    form(
-      action = ""
-      method = "POST"
-      id = "form-restore-item"
-      data-path = `${prefixAdmin}/recycle-bin/restore`
-    )
+        //Tài khoản          
+        table.table.table-hover.table-sm 
+          b Tài khoản
+          thead 
+            th Tên
+            th Email
+            th Xóa bởi 
+            th Hành động
+          tbody 
+            each item in accounts
+              tr 
+                td=item.fullName
+                td=item.email
+                td
+                  if(item.userDeleted)
+                    b=item.userDeleted
+                    +toDate(item.deletedBy.deletedAt)
+                    +toTime(item.deletedBy.deletedAt)
+                td 
+                  if(role.permissions.includes("recycel-bin_restore"))
+                    button(class="btn btn-warning" button-restore-item data-id=item.id data-type="accounts") Khôi phục
+                  if(role.permissions.includes("recycel-bin_remove"))
+                    button(class="btn btn-danger ml-2" button-remove-item data-id=item.id data-type="accounts") Xóa vĩnh viễn
+            
+      form(
+        action = ""
+        method = "POST"
+        id = "form-remove-item"
+        data-path = `${prefixAdmin}/recycle-bin/delete`
+      )
+      form(
+        action = ""
+        method = "POST"
+        id = "form-restore-item"
+        data-path = `${prefixAdmin}/recycle-bin/restore`
+      )
   script(src="/admin/js/recycle-bin.js") 

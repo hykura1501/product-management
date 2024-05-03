@@ -5,6 +5,7 @@ include ../../mixins/form-change-multi.pug
 include ../../mixins/alert.pug
 include ../../mixins/sort.pug
 include ../../mixins/table-tree.pug
+include ../../mixins/date-format.pug
 block main 
   +alert-success(3000)
   if(role.permissions.includes("product-category_view"))
@@ -41,6 +42,8 @@ block main
                 th Tên sản phẩm
                 th Vị trí
                 th Trạng thái 
+                th Tạo bởi 
+                th Cập nhật
                 th Hành động
             tbody 
               if records  

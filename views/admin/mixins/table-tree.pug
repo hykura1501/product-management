@@ -29,7 +29,16 @@ mixin table-tree(items, level = 1)
           span(
             class=`badge ${item.status === "active" ? "badge-success" : "badge-danger"}`
             ) #{item.status === "active" ? "Hoạt động" : "Dừng hoạt động"}
-
+      td 
+        if(item.userCreated)
+          b=item.userCreated
+          +toDate(item.createdBy.createdAt)
+          +toTime(item.createdBy.createdAt)
+      td
+        if(item.updatedBy.length > 0)
+          b=item.lastUserUpdated
+          +toDate(item.updatedBy.slice(-1)[0].updatedAt)
+          +toTime(item.updatedBy.updatedAt)
       td 
         a(
           href = `${prefixAdmin}/products-category/detail/${item.id}`

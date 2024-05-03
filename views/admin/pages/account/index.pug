@@ -1,5 +1,6 @@
 extends ../../layouts/default.pug
 include ../../mixins/alert.pug
+include ../../mixins/date-format.pug
 block main 
   +alert-success(3000)
   if(role.permissions.includes("account_view"))
@@ -23,6 +24,8 @@ block main
                 th Phân quyền
                 th Email
                 th Trạng thái
+                th Tạo bởi
+                th Cập nhật
                 th Hành động
             tbody 
               each item, index in records
@@ -55,7 +58,16 @@ block main
                       span(
                         class=`badge ${item.status === "active" ? "badge-success" : "badge-danger"}`
                         ) #{item.status === "active" ? "Hoạt động" : "Dừng hoạt động"}
-                      
+                  td 
+                    if(item.userCreated)
+                      b=item.userCreated
+                      +toDate(item.createdBy.createdAt)
+                      +toTime(item.createdBy.createdAt)
+                  td
+                    if (item.updatedBy.length > 0)
+                      b=item.lastUserUpdated
+                      +toDate(item.updatedBy.updatedAt)
+                      +toTime(item.updatedBy.updatedAt)
                   td 
                     a(
                       href = `${prefixAdmin}/accounts/detail/${item.id}`
