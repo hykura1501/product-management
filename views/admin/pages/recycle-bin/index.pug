@@ -1,5 +1,6 @@
 extends ../../layouts/default.pug
 include ../../mixins/alert.pug
+include ../../mixins/date-format.pug
 block main 
   +alert-success(3000)
   .ml-3
@@ -16,15 +17,19 @@ block main
           th Xóa bởi 
           th Hành động
         tbody 
-          each product in products
+          each item in products
             tr 
-              td=product.title
+              td=item.title
               td 
-                img(src=product.thumbnail alt=product.title img-preview class='img-thumbnail') 
-              td $1000
+                img(src=item.thumbnail alt=item.title img-preview class='img-thumbnail') 
+              td
+                if(item.userDeleted)
+                  b=item.userDeleted
+                  +toDate(item.deletedBy.deletedAt)
+                  +toTime(item.deletedBy.deletedAt)
               td 
-                button(class="btn btn-warning" button-restore-item data-id=product.id data-type="products") Khôi phục
-                button(class="btn btn-danger ml-2" button-remove-item data-id=product.id data-type="products") Xóa vĩnh viễn
+                button(class="btn btn-warning" button-restore-item data-id=item.id data-type="products") Khôi phục
+                button(class="btn btn-danger ml-2" button-remove-item data-id=item.id data-type="products") Xóa vĩnh viễn
 
       // Danh mục sản phẩm
       table.table.table-hover.table-sm 
@@ -40,7 +45,11 @@ block main
               td=item.title
               td 
                 img(src=item.thumbnail alt=item.title img-preview class='img-thumbnail') 
-              td $1000
+              td 
+                if(item.userDeleted)
+                  b=item.userDeleted
+                  +toDate(item.deletedBy.deletedAt)
+                  +toTime(item.deletedBy.deletedAt)
               td 
                 button(class="btn btn-warning" button-restore-item data-id=item.id data-type="products-category") Khôi phục
                 button(class="btn btn-danger ml-2" button-remove-item data-id=item.id data-type="products-category") Xóa vĩnh viễn
@@ -58,7 +67,11 @@ block main
             tr 
               td=item.title
               td=item.description
-              td $1000
+              td 
+                if(item.userDeleted)
+                  b=item.userDeleted
+                  +toDate(item.deletedBy.deletedAt)
+                  +toTime(item.deletedBy.deletedAt)
               td 
                 button(class="btn btn-warning" button-restore-item data-id=item.id data-type="roles") Khôi phục
                 button(class="btn btn-danger ml-2" button-remove-item data-id=item.id data-type="roles") Xóa vĩnh viễn
@@ -76,7 +89,11 @@ block main
             tr 
               td=item.fullName
               td=item.email
-              td $1000
+              td
+                if(item.userDeleted)
+                  b=item.userDeleted
+                  +toDate(item.deletedBy.deletedAt)
+                  +toTime(item.deletedBy.deletedAt)
               td 
                 button(class="btn btn-warning" button-restore-item data-id=item.id data-type="accounts") Khôi phục
                 button(class="btn btn-danger ml-2" button-remove-item data-id=item.id data-type="accounts") Xóa vĩnh viễn

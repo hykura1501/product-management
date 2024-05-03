@@ -37,7 +37,10 @@ block main
                       height="auto"
                     )
                   td=item.fullName
-                  td=item.role.title
+                  if(item.role)
+                    td=item.role.title
+                  else 
+                    td
                   td=item.email
                   td
                     if(role.permissions.includes("account_edit"))
