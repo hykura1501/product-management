@@ -4,6 +4,7 @@ const route = require("./routes/client/index.route");
 const adminRoute = require("./routes/admin/index.route")
 const systemConfig = require("./config/system")
 const database = require("./config/database")
+const dateFormat = require("date-format")
 
 //Ocerride method
 const methodOverride = require('method-override')
@@ -39,7 +40,7 @@ app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce
 
 // App Local Variables
 app.locals.prefixAdmin = systemConfig.prefixAdmin
-
+app.locals.dateFormat = dateFormat
 
 route(app)
 adminRoute(app)

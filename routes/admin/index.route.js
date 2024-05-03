@@ -4,6 +4,7 @@ const productsCategoryRouters = require("./products-category.route")
 const roleRouters = require("./role.route")
 const accountRouters = require("./account.route")
 const authRouters = require("./auth.route")
+const recycleBinRouters = require("./recycle-bin.route")
 const systemConfig = require("../../config/system")
 const authMiddleware = require("../../middlewares/admin/auth.middleware")
 
@@ -16,4 +17,5 @@ module.exports = (app) => {
     app.use(PATH_ADMIN + "/roles", authMiddleware.authRequire, roleRouters)
     app.use(PATH_ADMIN + "/accounts", authMiddleware.authRequire, accountRouters)
     app.use(PATH_ADMIN + "/auth", authRouters)
+    app.use(PATH_ADMIN + "/recycle-bin", authMiddleware.authRequire, recycleBinRouters)
 }

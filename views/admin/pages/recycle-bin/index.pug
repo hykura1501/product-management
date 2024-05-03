@@ -1,0 +1,96 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+block main 
+  +alert-success(3000)
+  .ml-3
+    h4 Thùng rác
+    .card   
+    .card-body 
+      .card-title Danh sách
+      //Sản phẩm
+      table.table.table-hover.table-sm 
+        b Sản phẩm
+        thead 
+          th Tiêu đề
+          th Hình ảnh 
+          th Xóa bởi 
+          th Hành động
+        tbody 
+          each product in products
+            tr 
+              td=product.title
+              td 
+                img(src=product.thumbnail alt=product.title img-preview class='img-thumbnail') 
+              td $1000
+              td 
+                button(class="btn btn-warning" button-restore-item data-id=product.id data-type="products") Khôi phục
+                button(class="btn btn-danger ml-2" button-remove-item data-id=product.id data-type="products") Xóa vĩnh viễn
+
+      // Danh mục sản phẩm
+      table.table.table-hover.table-sm 
+        b Danh mục sản phẩm
+        thead 
+          th Tiêu đề
+          th Hình ảnh 
+          th Xóa bởi 
+          th Hành động
+        tbody 
+          each item in productsCategory
+            tr 
+              td=item.title
+              td 
+                img(src=item.thumbnail alt=item.title img-preview class='img-thumbnail') 
+              td $1000
+              td 
+                button(class="btn btn-warning" button-restore-item data-id=item.id data-type="products-category") Khôi phục
+                button(class="btn btn-danger ml-2" button-remove-item data-id=item.id data-type="products-category") Xóa vĩnh viễn
+
+      // Nhóm quyền          
+      table.table.table-hover.table-sm 
+        b Nhóm quyền 
+        thead 
+          th Tên nhóm quyền
+          th Mô tả
+          th Xóa bởi 
+          th Hành động
+        tbody 
+          each item in roles
+            tr 
+              td=item.title
+              td=item.description
+              td $1000
+              td 
+                button(class="btn btn-warning" button-restore-item data-id=item.id data-type="roles") Khôi phục
+                button(class="btn btn-danger ml-2" button-remove-item data-id=item.id data-type="roles") Xóa vĩnh viễn
+
+      //Tài khoản          
+      table.table.table-hover.table-sm 
+        b Tài khoản
+        thead 
+          th Tên
+          th Email
+          th Xóa bởi 
+          th Hành động
+        tbody 
+          each item in accounts
+            tr 
+              td=item.fullName
+              td=item.email
+              td $1000
+              td 
+                button(class="btn btn-warning" button-restore-item data-id=item.id data-type="accounts") Khôi phục
+                button(class="btn btn-danger ml-2" button-remove-item data-id=item.id data-type="accounts") Xóa vĩnh viễn
+          
+    form(
+      action = ""
+      method = "POST"
+      id = "form-remove-item"
+      data-path = `${prefixAdmin}/recycle-bin/delete`
+    )
+    form(
+      action = ""
+      method = "POST"
+      id = "form-restore-item"
+      data-path = `${prefixAdmin}/recycle-bin/restore`
+    )
+  script(src="/admin/js/recycle-bin.js") 

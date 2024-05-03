@@ -5,6 +5,7 @@ include ../../mixins/pagination.pug
 include ../../mixins/form-change-multi.pug
 include ../../mixins/alert.pug
 include ../../mixins/sort.pug
+include ../../mixins/date-format.pug
 block main 
   +alert-success(3000)
   if(role.permissions.includes("product_view"))
@@ -42,6 +43,8 @@ block main
                 th Giá
                 th Vị trí
                 th Trạng thái 
+                th Tạo bởi
+                th Cập nhật
                 th Hành động
             tbody 
               each item, index in products
@@ -53,9 +56,8 @@ block main
                     img(
                       src=item.thumbnail,
                       alt=item.title,
-                      srcset="",
-                      width="100px",
-                      height="auto"
+                      img-preview 
+                      class='img-thumbnail'
                     )
                   td=item.title
                   td="$" + item.price
@@ -74,6 +76,16 @@ block main
                       span(
                         class=`badge ${item.status === "active" ? "badge-success" : "badge-danger"}`
                         ) #{item.status === "active" ? "Hoạt động" : "Dừng hoạt động"}
+                  td 
+                    if(item.userCreated)
+                      b=item.userCreated
+                      +toDate(item.createdBy.createdAt)
+                      +toTime(item.createdBy.createdAt)
+                  td
+                    if(item.updatedBy.length > 0)
+                      b=item.userLastUpdated
+                      +toDate(item.updatedBy.slice(-1)[0].updatedAt)
+                      +toTime(item.updatedBy.slice(-1)[0].updatedAt)
                   td 
                     a(
                       href = `${prefixAdmin}/products/detail/${item.id}`
