@@ -1,0 +1,32 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+block main 
+  if(role.permissions.includes("account_edit"))
+    +alert-success(3000)
+    +alert-error(3000)
+    h3(class='m-3')=pageTitle
+    .row 
+      .col-8 
+        form(
+          action=`${prefixAdmin}/profile/edit?_method=PATCH`
+          method="POST"
+          class='m-5'
+          enctype="multipart/form-data"
+        )
+          label(for="fullName") Họ và tên *
+          input(type="text" id="fullName" name="fullName" class='form-control' value=user.fullName)
+          label(for="email") Nhập email *
+          input(type="text" id="email" name="email" class='form-control' value=user.email)
+          label(for="password") Nhập mật khẩu *
+          input(type="password" id="password" name="password" class='form-control')
+          label(for="avatar") Hình đại diện
+          input(type = 'file' name="avatar" id='avatar' class='form-control-file' accept='image/*' input-upload-image)
+          img(src=user.avatar, alt="" img-preview class='img-thumbnail')
+          br
+          label(for="phone") Số điện thoại *
+          input(type="text" id="phone" name="phone" class='form-control' value=user.phone)
+          button(type="submit" class='btn btn-success mt-3') Cập nhật tài khoản
+
+  script(src="/admin/js/product.js") 
+
+
