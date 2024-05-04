@@ -1,0 +1,42 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+include ../../mixins/product-category-tree.pug
+block main 
+  if(role.permissions.includes("product-category_edit"))
+    h3(class='ml-3')=pageTitle
+    .ml-3 
+      +alert-error(3000)
+      if(record.title)
+        span Tiêu đề: 
+          b=record.title
+      br
+      if(record.thumbnail)
+        span Hình ảnh:
+        br
+        img(src=record.thumbnail alt=record.title img-preview class='img-thumbnail')
+      br
+      if(record.parent_id)
+        span Danh mục cha: 
+          b=record.recordParent
+      else 
+        span Danh mục cha: 
+          b Không có
+      br
+      if(record.description)
+        span Mô tả: 
+          b!=record.description
+      if(record.status)
+        span Trạng thái: 
+        span(
+            class=`badge ${record.status === "active" ? "badge-success" : "badge-danger"}`
+            ) #{record.status === "active" ? "Hoạt động" : "Dừng hoạt động"}
+      br
+      if(record.position)
+        span Vị trí: 
+        b=record.position
+      br
+      br
+      a(class="btn btn-warning" href=`${prefixAdmin}/products-category/edit/${record.id}`) Chỉnh sửa
+  script(src="/admin/js/product.js") 
+
+

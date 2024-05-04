@@ -35,11 +35,11 @@ module.exports.index = async (req, res) => {
     if (userCreated) {
       item.userCreated = userCreated.fullName;
     }
-    if(item.updatedBy.length > 0) {
+    if (item.updatedBy.length > 0) {
       const lastUserUpdated = await Account.findOne({
         _id: item.updatedBy.slice(-1)[0].account_id,
-      })
-      item.lastUserUpdated = lastUserUpdated.fullName
+      });
+      item.lastUserUpdated = lastUserUpdated.fullName;
     }
   }
 
@@ -53,7 +53,7 @@ module.exports.index = async (req, res) => {
   });
 };
 
-//[PATCH] Change status product
+//[PATCH] Change status products-category
 module.exports.changeStatus = async (req, res) => {
   const newUpdated = {
     account_id: res.locals.user.id,
@@ -70,7 +70,7 @@ module.exports.changeStatus = async (req, res) => {
   res.redirect("back");
 };
 
-//[PATCH] Change multi status products
+//[PATCH] Change multi status products-category
 module.exports.changeMulti = async (req, res) => {
   const newUpdated = {
     account_id: res.locals.user.id,
@@ -118,7 +118,7 @@ module.exports.changeMulti = async (req, res) => {
   res.redirect("back");
 };
 
-//[delete] delete product item
+//[delete] delete products-category item
 module.exports.delete = async (req, res) => {
   const deletedBy = {
     account_id: res.locals.user.id,
@@ -133,7 +133,37 @@ module.exports.delete = async (req, res) => {
   res.redirect("back");
 };
 
-//[Get] edit product
+//[Get] detail products-category
+module.exports.detail = async (req, res) => {
+  const id = req.params.id;
+  const find = {
+    deleted: false,
+    _id: id,
+  };
+  try {
+    const record = await ProductCategory.findOne(find);
+    if(record.parent_id) {
+      const recordParent = await ProductCategory.find({
+        deleted: false,
+        _id: record.parent_id,
+      });
+      if(recordParent) {
+        record.recordParent = recordParent.title
+      }
+    }
+    res.render("admin/pages/products-category/detail", {
+      pageTitle: "Trang chi tiết danh mục sản phẩm",
+      record: record,
+    });
+  } catch (error) {
+    if (error) {
+      console.log(error);
+      res.redirect(`${configSystem.prefixAdmin}/products-category`);
+    }
+  }
+};
+
+//[Get] edit products-category
 module.exports.edit = async (req, res) => {
   const id = req.params.id;
   const find = {
