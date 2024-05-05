@@ -1,0 +1,13 @@
+mixin product-item(item)
+  div.product-item.col-3
+    a.img-wrapper(href='javascript:;')
+      img(src=item.thumbnail)
+    if(item.featured === "1")
+      div.featured-product Nổi bật
+    .info
+      .info-price   
+        h5.price.old $#{item.price}
+        h5.price.sale $#{Math.floor(item.price * (1 - item.discountPercentage/100))}
+      a(href=`products/${item.slug}`)
+        p.title #{item.title}
+      h5.discountPer -#{item.discountPercentage}% 

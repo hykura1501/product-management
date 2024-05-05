@@ -1,14 +1,22 @@
+include ../mixins/dropdown-submenu.pug
 header.header
   nav.header-nav.container-header.flex-container
     h1.logo
-      a.logo-link(href='/products') Shop
+      a.logo-link(href='/') Shop
     ul.header-menu.flex-container
       li
-        a.header-menu-link(href='/products') Trang chủ
+        a.header-menu-link(href='/') Trang chủ
       li
-        a.header-menu-link(href='/products') Sản phẩm
+        a.header-menu-link.dropdown-toggle(data-bs-auto-close='outside' href='/products' data-bs-toggle='dropdown' aria-expanded='false') Sản phẩm 
+        ul.dropdown-menu
+          - const path = "/products"
+          +dropdown-submenu(productsCategory, path)
+
+        //- a#navbarDropdownMenuLink.nav-link.dropdown-toggle(data-mdb-dropdown-init='' href='#' role='button' data-mdb-toggle='dropdown' aria-expanded='false')
+        //-   | Sản phẩm 
+        //- ul.dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
       li
-        a.header-menu-link(href='/products') Webinars
+        a.header-menu-link(href='/products') Liên hệ
       li
-        a.header-menu-link(href='/products') Blog
+        a.header-menu-link(href='/products') Bài viết
     button(type="button" class="btn btn-outline-primary") Login

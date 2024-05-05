@@ -1,4 +1,3 @@
-const systemConfig = require("../../config/system");
 const md5 =  require("md5");
 const Account =  require("../../models/account.model");
 // [GET] /admin/profile

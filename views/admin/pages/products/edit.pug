@@ -21,6 +21,14 @@ block main
             option(value="" selected disabled) -- Chọn danh mục --
             if (category)
               +product-category-tree(category)
+          br
+          .form-check
+            input(type="radio" name="featured" id="featured1" value="1" class="form-check-input" checked=product.featured === "1") 
+            label.form-check-label(for="featured1") Nổi bật
+          .form-check  
+            input(type="radio" name="featured" id="featured0" value="0" class="form-check-input" checked=product.featured === "0") 
+            label.form-check-label(for="featured0") Không nổi bật
+          br
           label(for="description") Mô tả
           textarea(name="description" id='description' class='form-control textarea-tinymce' rows='6')=product.description
           label(for="price") Giá

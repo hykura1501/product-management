@@ -1,0 +1,10 @@
+mixin dropdown-submenu(productsCategory, path)
+  each item in productsCategory
+    if(item.children && item.children.length > 0)
+      li.dropdown.dropend
+        a.dropdown-item.dropdown-toggle(href=`${path}/${item.slug}` data-bs-auto-close='outside' data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false')=item.title
+        ul.dropdown-menu.dropdown-submenu
+          +dropdown-submenu(item.children, path)
+    else 
+      li
+        a.dropdown-item(href=`${path}/${item.slug}`)=item.title
