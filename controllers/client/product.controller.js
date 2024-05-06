@@ -12,14 +12,24 @@ module.exports.index = async (req, res) => {
     products: products,
   });
 };
-//[GET] /products/:slug
+//[GET] /products/detail/:slugProduct
 module.exports.detail = async (req, res) => {
   try {
     const product = await Product.findOne({
       deleted: false,
       status: "active",
-      slug: req.params.slug,
+      slug: req.params.slugProduct,
     });
+    if (product.product_category_id) {
+      const category = await ProductCategory.findOne({
+        deleted: false,
+        status: "active",
+        _id: product.product_category_id,
+      });
+      if(category) {
+        product.category = category.title
+      }
+    }
     res.render("client/pages/products/detail", {
       pageTitle: product.title,
       product: product,

@@ -16,7 +16,6 @@ buttonStatus.forEach((button) => {
 //End---Button Status: filter Product
 
 //Form Search 
-
 const formSearch = document.querySelector("#form-search")
 if(formSearch) {
     formSearch.addEventListener("submit", (event) => {

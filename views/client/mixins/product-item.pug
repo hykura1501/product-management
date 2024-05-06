@@ -8,6 +8,6 @@ mixin product-item(item)
       .info-price   
         h5.price.old $#{item.price}
         h5.price.sale $#{Math.floor(item.price * (1 - item.discountPercentage/100))}
-      a(href=`products/${item.slug}`)
+      a(href=`products/detail/${item.slug}`)
         p.title #{item.title}
       h5.discountPer -#{item.discountPercentage}% 

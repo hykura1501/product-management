@@ -1,36 +1,61 @@
 extends ../../layouts/default.pug
 block main 
-  .contrainer-flud  
-    .row 
-      .col-2 
-        div Sider 
-      .col-10
-        h3(class='m-3') Chi tiết sản phẩm
-        .row 
-          .col-8.pl-5
-            if(product.title) 
-              p Tiêu đề: 
-                b 
-                  span=product.title
-            if(product.description) 
-              p Mô tả: 
-                b 
-                  span!=product.description
-            if(product.price) 
-              p Giá: 
-                b 
-                  span="$" + product.price
-            if(product.discountPercentage) 
-              p % Giảm giá: 
-                b 
-                  span=product.discountPercentage
-            if(product.stock) 
-              p Tồn kho: 
-                b 
-                  span=product.stock
-            if(product.thumbnail) 
-              p Ảnh: 
-              img(src=product.thumbnail, alt=product.title img-preview class='img-thumbnail')
+  .container.mt-5.mb-5
+    .row.d-flex.justify-content-center
+      .col-md-10
+        .card
+          .row
+            .col-md-6
+              if(product.thumbnail)
+                .images.p-3
+                  .text-center.p-4
+                    img#main-image(src=product.thumbnail width='250')
+                  .thumbnail.text-center
+                    img(onclick='change_image(this)' src=product.thumbnail width='70')
+                    img(onclick='change_image(this)' src=product.thumbnail width='70')
+            .col-md-6
+              .product.p-4
+                .d-flex.justify-content-between.align-items-center
+                  .d-flex.align-items-center
+                    i.fa.fa-long-arrow-left
+                    span.ml-1 Back
+                  i.fa.fa-shopping-cart.text-muted
+                .mt-4.mb-3
+                  if(product.category)
+                    span.text-uppercase.text-muted.brand=product.category
+                  if(product.title)
+                    h5.text-uppercase=product.title
+                  .price.d-flex.flex-row.align-items-center
+                    if(product.discountPercentage)
+                      span.act-price $#{Math.floor(product.price * (1 - product.discountPercentage/100))}
+                      br
+                      br
+                  .ml-2
+                    if(product.price)
+                      small.dis-price $#{product.price}
+                      br
+                      br
+                    if(product.discountPercentage)
+                      span=product.discountPercentage + "% OFF"
+                if(product.stock)
+                  .product-stock  
+                    b Còn lại: 
+                      span=product.stock
+                form(class="add-to-card" action=`cart/add/${product.id}` method="POST")
+                  input(type="number" name="quantity" class="form-control w-75 mt-3" min=1 max=product.stock value="1")
+                  .cart.mt-3.align-items-center
+                    button.btn.btn-outline-success.text-uppercase.mr-2.px-4(type="submit")
+                      | Add to cart
+                    button.btn.btn-info.text-uppercase.m-2.px-4
+                      | Buy Now
+                    i.fa.fa-heart.text-muted
+                    i.fa.fa-share-alt.text-muted
+        if(product.description)
+          b Mô tả sản phẩm 
+          br
+          p.about!=product.description
+
+
   script(src="/admin/js/product.js") 
 
 

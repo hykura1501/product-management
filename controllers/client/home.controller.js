@@ -5,7 +5,7 @@ module.exports.index = async (req, res) => {
     deleted: false,
     status: "active",
     featured: "1",
-  }).limit(4);
+  }).limit(4).sort({ position: "desc" });
   const productNew = await Product.find({
     deleted: false,
     status: "active",
