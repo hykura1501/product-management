@@ -375,3 +375,14 @@ label.radio input:checked + span {
 .cart i {
   margin-right: 10px;
 }
+
+
+.img-thumbnail[src = ''] {
+  display: none;
+}
+
+.img-thumbnail {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}

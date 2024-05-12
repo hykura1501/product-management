@@ -1,9 +1,9 @@
 include ../mixins/dropdown-submenu.pug
 header.header
-  nav.header-nav.container-header.flex-container
+  nav.header-nav.container-header.flex-container.d-flex
     h1.logo
       a.logo-link(href='/') Shop
-    ul.header-menu.flex-container
+    ul.header-menu.flex-container.mb-0
       li
         a.header-menu-link(href='/') Trang chủ
       li
@@ -11,12 +11,14 @@ header.header
         ul.dropdown-menu
           - const path = "/products"
           +dropdown-submenu(productsCategory, path)
-
-        //- a#navbarDropdownMenuLink.nav-link.dropdown-toggle(data-mdb-dropdown-init='' href='#' role='button' data-mdb-toggle='dropdown' aria-expanded='false')
-        //-   | Sản phẩm 
-        //- ul.dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
       li
         a.header-menu-link(href='/products') Liên hệ
       li
         a.header-menu-link(href='/products') Bài viết
-    button(type="button" class="btn btn-outline-primary") Login
+    form.w-30(id="form-search" action="/search") 
+      .input-group
+        input(type="text" class="form-control" placeholder="Nhập tìm kiếm" name="keyword" value=keyword)
+        button(class="btn btn-success" type="submit") Tìm kiếm
+    div(class="d-flex flex-column")
+      button(type="button" class="btn btn-outline-primary") Login
+      a(href='/cart' class="mt-3 btn btn-warning") Giỏ hàng (#{totalProducts})

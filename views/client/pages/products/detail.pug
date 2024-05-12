@@ -41,7 +41,7 @@ block main
                   .product-stock  
                     b Còn lại: 
                       span=product.stock
-                form(class="add-to-card" action=`cart/add/${product.id}` method="POST")
+                form(class="add-to-card" action=`/cart/add/${product.id}` method="POST")
                   input(type="number" name="quantity" class="form-control w-75 mt-3" min=1 max=product.stock value="1")
                   .cart.mt-3.align-items-center
                     button.btn.btn-outline-success.text-uppercase.mr-2.px-4(type="submit")

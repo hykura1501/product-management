@@ -183,8 +183,8 @@ module.exports.createPost = async (req, res) => {
   if (req.body.position) {
     req.body.position = parseInt(req.body.position);
   } else {
-    const countProducts = await Product.countDocuments();
-    req.body.position = countProducts + 1;
+    const maxPosition = await Product.findOne({}).sort({ position:"desc" }).limit(1).select("position");
+    req.body.position = maxPosition.position + 1;
   }
   req.body.createdBy = {
     account_id: res.locals.user.id,
