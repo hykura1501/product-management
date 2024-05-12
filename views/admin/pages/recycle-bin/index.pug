@@ -10,7 +10,7 @@ block main
       .card-body 
         .card-title Danh sách
         //Sản phẩm
-        table.table.table-hover.table-sm 
+        table.table.table-hover.table-sm.table-bordered
           b Sản phẩm
           thead 
             th Tiêu đề
@@ -35,7 +35,7 @@ block main
                     button(class="btn btn-danger ml-2" button-remove-item data-id=item.id data-type="products") Xóa vĩnh viễn
 
         // Danh mục sản phẩm
-        table.table.table-hover.table-sm 
+        table.table.table-hover.table-sm.table-bordered
           b Danh mục sản phẩm
           thead 
             th Tiêu đề
@@ -60,7 +60,7 @@ block main
                     button(class="btn btn-danger ml-2" button-remove-item data-id=item.id data-type="products-category") Xóa vĩnh viễn
 
         // Nhóm quyền          
-        table.table.table-hover.table-sm 
+        table.table.table-hover.table-sm.table-bordered
           b Nhóm quyền 
           thead 
             th Tên nhóm quyền
@@ -84,7 +84,7 @@ block main
                     button(class="btn btn-danger ml-2" button-remove-item data-id=item.id data-type="roles") Xóa vĩnh viễn
 
         //Tài khoản          
-        table.table.table-hover.table-sm 
+        table.table.table-hover.table-sm.table-bordered
           b Tài khoản
           thead 
             th Tên

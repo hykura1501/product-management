@@ -7,7 +7,7 @@ block main
     +box-head("Trang giỏ hàng")
     div(class="text-end")
       h4="Tổng đơn hàng: $" + cartItems.totalPrice
-      a(class="btn btn-success m-3" href="/payment") Thanh toán
+      a(class="btn btn-success m-3" href="/checkout") Thanh toán
     table.table.table-success.table-striped.table-hover
       thead 
         th STT 
@@ -23,7 +23,8 @@ block main
             td=index + 1
             td 
               img(src=item.productInfor.thumbnail, alt=item.productInfor.title img-preview class='img-thumbnail')
-            td=item.productInfor.title
+            td
+              a(href=`products/detail/${item.productInfor.slug}`)=item.productInfor.title
             td= "$" + item.newPrice
             td 
               input(type="number" min="1" max=item.productInfor.stock value=item.quantity name="quantity" product-id=item.product_id)
