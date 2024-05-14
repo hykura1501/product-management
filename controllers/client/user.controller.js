@@ -99,6 +99,8 @@ module.exports.forgotPasswordPost = async (req, res) => {
         const html = `Mã OTP để lấy lại mật khẩu của bạn là: <b>${otp}</b>. Vui lòng không cung cấp cho bất kỳ ai. Lưu ý mã này chỉ có thể sử dụng trong vòng 3 phút`;
         sendMailHelper.sendMail(email, subject, html);
         res.redirect(`/user/password/otp?email=${email}`);
+      }else {
+        res.redirect("back")
       }
     } catch (error) {
       console.log(error);
