@@ -5,7 +5,8 @@ const adminRoute = require("./routes/admin/index.route")
 const systemConfig = require("./config/system")
 const database = require("./config/database")
 const dateFormat = require("date-format")
-
+const dotenv = require('dotenv');
+dotenv.config();
 //Ocerride method
 const methodOverride = require('method-override')
 
@@ -19,7 +20,7 @@ const cookieParser = require('cookie-parser')
 
 database.connect()
 
-require('dotenv').config();
+// require('dotenv').config();
 
 const app = express()
 const port = process.env.PORT

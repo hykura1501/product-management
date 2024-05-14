@@ -1,5 +1,7 @@
 const nodemailer = require("nodemailer");
 const smtpTransport = require("nodemailer-smtp-transport");
+// const dotenv = require('dotenv');
+// dotenv.config();
 module.exports.sendMail = (email, subject, html) => {
 
   const transporter = nodemailer.createTransport(
@@ -7,14 +9,14 @@ module.exports.sendMail = (email, subject, html) => {
       service: "gmail",
       host: "smtp.gmail.com",
       auth: {
-        user: "voho39850@gmail.com",
-        pass: "odapklgpshjsatnl",
+        user: process.env.USER_GMAIL,
+        pass: process.env.USER_PASS,
       },
     })
   );
 
   const mailOptions = {
-    from: "somerealemail@gmail.com",
+    from: process.env.USER_GMAIL,
     to: email,
     subject: subject,
     html: html,
