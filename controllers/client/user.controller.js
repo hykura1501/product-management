@@ -87,11 +87,11 @@ module.exports.forgotPasswordPost = async (req, res) => {
       const user = await User.findOne({ email: email, deleted: false });
       if (user) {
         //save otp to forgotPasswordSchema;
-        const otp = generate.Number(8);
+        const otp = generate.Number(6);
         const objForgotPassword = new ForgotPassword({
           email: email,
           otp: otp,
-          expireAt: Date.now(),
+          expireAt: new Date(),
         });
         await objForgotPassword.save();
         //
