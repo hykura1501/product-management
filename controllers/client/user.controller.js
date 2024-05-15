@@ -165,3 +165,9 @@ module.exports.resetPost = async (req, res) => {
   res.clearCookie("tokenUserForgot");
   res.redirect(`/`);
 };
+//[GET] /user/profile
+module.exports.profile = async (req, res) => {
+  res.render("client/pages/user/profile", {
+    pageTitle: "Thông tin cá nhân"
+  })
+};

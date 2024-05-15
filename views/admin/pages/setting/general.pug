@@ -1,0 +1,30 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+include ../../mixins/product-category-tree.pug
+block main 
+  +alert-error(3000)
+  if(role.permissions.includes("product_create"))
+    h3(class='m-3')=pageTitle
+    .row 
+      .col-8 
+        form(
+          action=`${prefixAdmin}/setting/general?_method=PATCH`
+          method="POST"
+          class='m-5'
+          enctype="multipart/form-data"
+        )
+          label(for="name") Tên
+          input(type="text" id='name' name='name' class='form-control' value=settingGeneral ? settingGeneral.name : "")
+          label(for="phone") Số điện thoại
+          input(type = 'text' name="phone" id='phone' class='form-control' value=settingGeneral ? settingGeneral.phone : "")
+          label(for="address") Địa chỉ
+          input(type = 'text' name="address" id='address' class='form-control' value=settingGeneral ? settingGeneral.address : "")
+          label(for="logo") Logo
+          input(type = 'file' name="logo" id='logo' class='form-control-file' accept='image/*' input-upload-image)
+          img(src=value=settingGeneral ? settingGeneral.logo : "", alt=value=settingGeneral ? settingGeneral.name : "" img-preview class='img-thumbnail')
+          br
+          button(type='submit' class='btn btn-success mt-5') Cập nhật
+  script(src="/admin/js/product.js") 
+
+    
+    

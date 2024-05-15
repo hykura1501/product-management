@@ -25,4 +25,6 @@ header.header
         a(class="btn btn-outline-success" href="/user/login") Login
         a(class="btn btn-primary mt-3" href="/user/register") Register
     else 
-      a(class="btn btn-primary" href="/user/logout") Logout
+      div(class="d-flex flex-column")
+        a(href="/user/profile" class="mb-2")=user.fullName
+        a(class="btn btn-primary" href="/user/logout") Logout

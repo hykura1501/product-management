@@ -6,6 +6,7 @@ const accountRouters = require("./account.route")
 const authRouters = require("./auth.route")
 const recycleBinRouters = require("./recycle-bin.route")
 const profileRouters = require("./profile.route")
+const settingRouters = require("./setting.route")
 const systemConfig = require("../../config/system")
 const authMiddleware = require("../../middlewares/admin/auth.middleware")
 
@@ -20,4 +21,5 @@ module.exports = (app) => {
     app.use(PATH_ADMIN + "/auth", authRouters)
     app.use(PATH_ADMIN + "/profile", authMiddleware.authRequire, profileRouters)
     app.use(PATH_ADMIN + "/recycle-bin", authMiddleware.authRequire, recycleBinRouters)
+    app.use(PATH_ADMIN + "/setting", authMiddleware.authRequire, settingRouters)
 }

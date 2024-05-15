@@ -2,4 +2,95 @@ extends ../../layouts/default.pug
 include ../../mixins/alert.pug
 block main 
   +alert-success(3000)
-  h1 Trang tổng quan
+  h4(class="m-3") Trang tổng quan
+  .container
+    h6 Thông tin tài khoản
+    .row 
+      .col-8.pl-5
+        if(user.fullName) 
+          p Họ và tên: 
+            b 
+              span=user.fullName
+        if(user.email) 
+          p Email: 
+            b 
+              span=user.email
+        if(user.avatar) 
+          p Ảnh đại diện: 
+            br
+            img(src=user.avatar alt=user.fullName img-preview class='img-thumbnail')
+        if(user.phone) 
+          p Số điện thoại: 
+            b 
+              span=user.phone
+        if(role) 
+          p Vai trò: 
+            b 
+              span=role.title
+  .container.d-flex.justify-content-center
+    h6 Thống kê
+    .row
+      .col-6
+        if(user.fullName) 
+          p Họ và tên: 
+            b 
+              span=user.fullName
+        if(user.email) 
+          p Email: 
+            b 
+              span=user.email
+        if(user.avatar) 
+          p Ảnh đại diện: 
+            br
+            img(src=user.avatar alt=user.fullName img-preview class='img-thumbnail')
+        if(user.phone) 
+          p Số điện thoại: 
+            b 
+              span=user.phone
+        if(role) 
+          p Vai trò: 
+            b 
+              span=role.title
+      .col-6
+        if(user.fullName) 
+          p Họ và tên: 
+            b 
+              span=user.fullName
+        if(user.email) 
+          p Email: 
+            b 
+              span=user.email
+        if(user.avatar) 
+          p Ảnh đại diện: 
+            br
+            img(src=user.avatar alt=user.fullName img-preview class='img-thumbnail')
+        if(user.phone) 
+          p Số điện thoại: 
+            b 
+              span=user.phone
+        if(role) 
+          p Vai trò: 
+            b 
+              span=role.title
+      .col-6
+        if(user.fullName) 
+          p Họ và tên: 
+            b 
+              span=user.fullName
+        if(user.email) 
+          p Email: 
+            b 
+              span=user.email
+        if(user.avatar) 
+          p Ảnh đại diện: 
+            br
+            img(src=user.avatar alt=user.fullName img-preview class='img-thumbnail')
+        if(user.phone) 
+          p Số điện thoại: 
+            b 
+              span=user.phone
+        if(role) 
+          p Vai trò: 
+            b 
+              span=role.title
+        
