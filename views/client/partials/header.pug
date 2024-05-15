@@ -1,30 +1,34 @@
 include ../mixins/dropdown-submenu.pug
 header.header
-  nav.header-nav.container-header.flex-container.d-flex
-    h1.logo
-      a.logo-link(href='/') Shop
-    ul.header-menu.flex-container.mb-0
-      li
-        a.header-menu-link(href='/') Trang chủ
-      li
-        a.header-menu-link.dropdown-toggle(data-bs-auto-close='outside' href='/products' data-bs-toggle='dropdown' aria-expanded='false') Sản phẩm 
-        ul.dropdown-menu
-          - const path = "/products"
-          +dropdown-submenu(productsCategory, path)
-      li
-        a.header-menu-link(href='/products') Liên hệ
-      li
-        a.header-menu-link(href='/products') Bài viết
-    form.w-30(id="form-search" action="/search") 
-      .input-group
-        input(type="text" class="form-control" placeholder="Nhập tìm kiếm" name="keyword" value=keyword)
-        button(class="btn btn-success" type="submit") Tìm kiếm
-    a(href='/cart' class="btn btn-warning") Giỏ hàng (#{totalProducts})
-    if(!user)
-      div(class="d-flex flex-column")
-        a(class="btn btn-outline-success" href="/user/login") Login
-        a(class="btn btn-primary mt-3" href="/user/register") Register
-    else 
-      div(class="d-flex flex-column")
-        a(href="/user/profile" class="mb-2")=user.fullName
-        a(class="btn btn-primary" href="/user/logout") Logout
+  div.d-flex.flex-column
+    nav.header-nav.container-header.flex-container.d-flex.justify-content-between
+      a(href="/")
+        img(src="https://extrim.vn/_next/image?url=https%3A%2F%2Fextrim-prod.s3.ap-southeast-1.amazonaws.com%2Fsneaker_logo_3_f24f9e81cb.png&w=3840&q=75", alt="" class="logo_header")
+      ul.header-menu.flex-container.mb-0
+        li
+          a.header-menu-link(href='/') Trang chủ
+        li
+          a.header-menu-link.dropdown-toggle(data-bs-auto-close='outside' href='/products' data-bs-toggle='dropdown' aria-expanded='false') Sản phẩm 
+          ul.dropdown-menu
+            - const path = "/products"
+            +dropdown-submenu(productsCategory, path)
+        li
+          a.header-menu-link(href='/products') Liên hệ
+        li
+          a.header-menu-link(href='/products') Bài viết
+      form.w-30(id="form-search" action="/search") 
+        .input-group
+          input(type="text" class="form-control" placeholder="Nhập tìm kiếm" name="keyword" value=keyword)
+          button(class="btn btn-success" type="submit") Tìm kiếm
+      div.d-flex.align-items-center.gap-3
+        if(!user)
+          a(class="btn btn-outline-success" href="/user/login") Login
+          a(class="btn btn-primary mt-3" href="/user/register") Register
+        else 
+          a(href="/user/profile" class="mb-2")=user.fullName
+          a(class="btn btn-primary" href="/user/logout") Logout
+    div.d-flex.justify-content-end.gap-3
+      if(user)
+        a(href='/chat' class="btn btn-danger") Chat
+      a(href='/cart' class="btn btn-warning") Giỏ hàng (#{totalProducts})
+        

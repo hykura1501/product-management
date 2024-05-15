@@ -1,0 +1,148 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+include ../../mixins/product-layout.pug
+
+block main 
+  .container
+    .content-wrapper
+      // Row start
+      .row.gutters
+        .col-xl-12.col-lg-12.col-md-12.col-sm-12.col-12
+          .card.m-0
+            // Row start
+            .row.no-gutters
+              .col-xl-4.col-lg-4.col-md-4.col-sm-3.col-3
+                .users-container
+                  .chat-search-box
+                    .input-group
+                      input.form-control(placeholder='Search')
+                      .input-group-btn
+                        button.btn.btn-info(type='button')
+                          i.fa.fa-search
+                  ul.users
+                    li.person(data-chat='person1')
+                      .user
+                        img(src='https://www.bootdey.com/img/Content/avatar/avatar3.png' alt='Retail Admin')
+                        span.status.busy
+                      p.name-time
+                        span.name Steve Bangalter
+                        span.time 15/02/2019
+                    li.person(data-chat='person1')
+                      .user
+                        img(src='https://www.bootdey.com/img/Content/avatar/avatar1.png' alt='Retail Admin')
+                        span.status.offline
+                      p.name-time
+                        span.name Steve Bangalter
+                        span.time 15/02/2019
+                    li.person.active-user(data-chat='person2')
+                      .user
+                        img(src='https://www.bootdey.com/img/Content/avatar/avatar2.png' alt='Retail Admin')
+                        span.status.away
+                      p.name-time
+                        span.name Peter Gregor
+                        span.time 12/02/2019
+                    li.person(data-chat='person3')
+                      .user
+                        img(src='https://www.bootdey.com/img/Content/avatar/avatar3.png' alt='Retail Admin')
+                        span.status.busy
+                      p.name-time
+                        span.name Jessica Larson
+                        span.time 11/02/2019
+                    li.person(data-chat='person4')
+                      .user
+                        img(src='https://www.bootdey.com/img/Content/avatar/avatar4.png' alt='Retail Admin')
+                        span.status.offline
+                      p.name-time
+                        span.name Lisa Guerrero
+                        span.time 08/02/2019
+                    li.person(data-chat='person5')
+                      .user
+                        img(src='https://www.bootdey.com/img/Content/avatar/avatar5.png' alt='Retail Admin')
+                        span.status.away
+                      p.name-time
+                        span.name Michael Jordan
+                        span.time 05/02/2019
+              .col-xl-8.col-lg-8.col-md-8.col-sm-9.col-9
+                .selected-user
+                  span
+                    | To: 
+                    span.name Emily Russell
+                .chat-container
+                  ul.chat-box.chatContainerScroll
+                    li.chat-left
+                      .chat-avatar
+                        img(src='https://www.bootdey.com/img/Content/avatar/avatar3.png' alt='Retail Admin')
+                        .chat-name Russell
+                      .chat-text
+                        | Hello, I&apos;m Russell.
+                        br
+                        | How can I help you today?
+                      .chat-hour
+                        | 08:55 
+                        span.fa.fa-check-circle
+                    li.chat-right
+                      .chat-hour
+                        | 08:56 
+                        span.fa.fa-check-circle
+                      .chat-text
+                        | Hi, Russell
+                        br
+                        |  I need more information about Developer Plan.
+                      .chat-avatar
+                        img(src='https://www.bootdey.com/img/Content/avatar/avatar3.png' alt='Retail Admin')
+                        .chat-name Sam
+                    li.chat-left
+                      .chat-avatar
+                        img(src='https://www.bootdey.com/img/Content/avatar/avatar3.png' alt='Retail Admin')
+                        .chat-name Russell
+                      .chat-text
+                        | Are we meeting today?
+                        br
+                        | Project has been already finished and I have results to show you.
+                      .chat-hour
+                        | 08:57 
+                        span.fa.fa-check-circle
+                    li.chat-right
+                      .chat-hour
+                        | 08:59 
+                        span.fa.fa-check-circle
+                      .chat-text
+                        | Well I am not sure.
+                        br
+                        | I have results to show you.
+                      .chat-avatar
+                        img(src='https://www.bootdey.com/img/Content/avatar/avatar5.png' alt='Retail Admin')
+                        .chat-name Joyse
+                    li.chat-left
+                      .chat-avatar
+                        img(src='https://www.bootdey.com/img/Content/avatar/avatar3.png' alt='Retail Admin')
+                        .chat-name Russell
+                      .chat-text
+                        | The rest of the team is not here yet.
+                        br
+                        | Maybe in an hour or so?
+                      .chat-hour
+                        | 08:57 
+                        span.fa.fa-check-circle
+                    li.chat-right
+                      .chat-hour
+                        | 08:59 
+                        span.fa.fa-check-circle
+                      .chat-text Have you faced any problems at the last phase of the project?
+                      .chat-avatar
+                        img(src='https://www.bootdey.com/img/Content/avatar/avatar4.png' alt='Retail Admin')
+                        .chat-name Jin
+                    li.chat-left
+                      .chat-avatar
+                        img(src='https://www.bootdey.com/img/Content/avatar/avatar3.png' alt='Retail Admin')
+                        .chat-name Russell
+                      .chat-text
+                        | Actually everything was fine.
+                        br
+                        | I&apos;m very excited to show this to our team.
+                      .chat-hour
+                        | 07:00 
+                        span.fa.fa-check-circle
+                  .form-group.mt-3.mb-0.d-flex
+                    input.form-control(rows='3' placeholder='Type your message here...')
+                    button Send
