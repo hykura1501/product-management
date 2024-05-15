@@ -67,7 +67,7 @@ block main
                   span
                     | To: 
                     span.name Emily Russell
-                .chat-container
+                div(my_id=user.id).chat-container
                   ul.chat-box.chatContainerScroll
                     each chat in chats 
                       if(chat.user_id == user.id)
@@ -92,59 +92,6 @@ block main
                           .chat-hour
                             | 08:55 
                             span.fa.fa-check-circle
-                    
-                    //- li.chat-left
-                    //-   .chat-avatar
-                    //-     img(src='https://www.bootdey.com/img/Content/avatar/avatar3.png' alt='Retail Admin')
-                    //-     .chat-name Russell
-                    //-   .chat-text
-                    //-     | Are we meeting today?
-                    //-     br
-                    //-     | Project has been already finished and I have results to show you.
-                    //-   .chat-hour
-                    //-     | 08:57 
-                    //-     span.fa.fa-check-circle
-                    //- li.chat-right
-                    //-   .chat-hour
-                    //-     | 08:59 
-                    //-     span.fa.fa-check-circle
-                    //-   .chat-text
-                    //-     | Well I am not sure.
-                    //-     br
-                    //-     | I have results to show you.
-                    //-   .chat-avatar
-                    //-     img(src='https://www.bootdey.com/img/Content/avatar/avatar5.png' alt='Retail Admin')
-                    //-     .chat-name Joyse
-                    //- li.chat-left
-                    //-   .chat-avatar
-                    //-     img(src='https://www.bootdey.com/img/Content/avatar/avatar3.png' alt='Retail Admin')
-                    //-     .chat-name Russell
-                    //-   .chat-text
-                    //-     | The rest of the team is not here yet.
-                    //-     br
-                    //-     | Maybe in an hour or so?
-                    //-   .chat-hour
-                    //-     | 08:57 
-                    //-     span.fa.fa-check-circle
-                    //- li.chat-right
-                    //-   .chat-hour
-                    //-     | 08:59 
-                    //-     span.fa.fa-check-circle
-                    //-   .chat-text Have you faced any problems at the last phase of the project?
-                    //-   .chat-avatar
-                    //-     img(src='https://www.bootdey.com/img/Content/avatar/avatar4.png' alt='Retail Admin')
-                    //-     .chat-name Jin
-                    //- li.chat-left
-                    //-   .chat-avatar
-                    //-     img(src='https://www.bootdey.com/img/Content/avatar/avatar3.png' alt='Retail Admin')
-                    //-     .chat-name Russell
-                    //-   .chat-text
-                    //-     | Actually everything was fine.
-                    //-     br
-                    //-     | I&apos;m very excited to show this to our team.
-                    //-   .chat-hour
-                    //-     | 07:00 
-                    //-     span.fa.fa-check-circle
                   form.form-group.mt-3.mb-0.d-flex.form-input-message
                     input.form-control(rows='3' placeholder='Nhập tin nhắn' name="message")
                     button(type="submit" class="btn")

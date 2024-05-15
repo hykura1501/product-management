@@ -353,3 +353,8 @@ ul {
 .chat-right > .chat-text {
   background-color: pink;
 }
+
+.chat-box.chatContainerScroll {
+    max-height: 450px;
+    overflow-y: auto;
+}
