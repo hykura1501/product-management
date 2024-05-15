@@ -153,7 +153,6 @@ module.exports.resetPost = async (req, res) => {
     res.redirect(`back`);
     return;
   }
-
   if (password !== passwordConfirm) {
     res.redirect(`back`);
     return;
