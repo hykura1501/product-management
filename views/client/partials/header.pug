@@ -23,7 +23,7 @@ header.header
       div.d-flex.align-items-center.gap-3
         if(!user)
           a(class="btn btn-outline-success" href="/user/login") Login
-          a(class="btn btn-primary mt-3" href="/user/register") Register
+          a(class="btn btn-primary" href="/user/register") Register
         else 
           a(href="/user/profile" class="mb-2")=user.fullName
           a(class="btn btn-primary" href="/user/logout") Logout
