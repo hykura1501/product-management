@@ -33,5 +33,12 @@ socket.on("SERVER_RETURN_DATA", (data) => {
       `;
     }
     ul.appendChild(li);
+    ul.scrollTop = ul.scrollHeight
   }
 });
+
+//Scroll To Bottom
+const chatContainer = document.querySelector(".chat-box.chatContainerScroll")
+if(chatContainer) {
+  chatContainer.scrollTop = chatContainer.scrollHeight
+}
