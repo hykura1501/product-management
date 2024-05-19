@@ -1,12 +1,11 @@
 extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
-include ../../mixins/product-layout.pug
-
 block main 
   .container
     .content-wrapper
+      include ../../partials/list-btn-friend.pug
       // Row start
-      .row.gutters
+      .row.gutters.border.border-secondary
         .col-xl-12.col-lg-12.col-md-12.col-sm-12.col-12
           .card.m-0
             // Row start
@@ -111,4 +110,9 @@ block main
                       emoji-picker.light
                     button(type="submit" class="btn")
                       i.fa-solid.fa-paper-plane
-    
+block script 
+  script(type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js")
+  script(src="https://unpkg.com/file-upload-with-preview/dist/file-upload-with-preview.iife.js") 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.6/viewer.min.js"></script>
+  script(type="module" src="/js/chat.js") 
+  

@@ -9,6 +9,14 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: generate.String(20),
     },
+    friends: [
+      {
+        user_id: String,
+        room_chat_id: String,
+      }
+    ],
+    requests: Array,
+    accepts: Array,
     avatar: String,
     phone: String,
     status: {

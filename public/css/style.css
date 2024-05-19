@@ -18,7 +18,18 @@
 
 /* CONTAINERS STYLES */
 .header {
-  background-color: rgb(245, 188, 188);
+  background: #dd5e89; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to left,
+    #f7bb97,
+    #dd5e89
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to left,
+    #f7bb97,
+    #dd5e89
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
   padding: 20px;
 }
 
@@ -95,7 +106,6 @@
   margin-left: 0.5em;
   vertical-align: 0.0715em;
 }
-
 
 @media only screen and (min-width: 1024px) {
   /* CONTAINERS STYLES */
@@ -388,3 +398,59 @@ label.radio input:checked + span {
   object-fit: cover;
 }
 
+.avatar-user {
+  height: 60px;
+  width: 60px;
+  object-fit: cover;
+}
+
+/* Users */
+.box-user [btn-cancel-friend] {
+  display: none;
+}
+.box-user.add [btn-add-friend] {
+  display: none;
+}
+.box-user.add [btn-cancel-friend] {
+  display: block;
+}
+
+.box-user.both [btn-cancel-friend] {
+  display: block;
+}
+.box-user.both [btn-add-friend] {
+  display: block;
+}
+
+
+
+.message-accepted,
+.message-disagreed {
+  display: none;
+}
+
+.box-user.accepted .message-accepted {
+  display: block;
+}
+.box-user.disagreed .message-disagreed {
+  display: block;
+}
+
+.box-user.disagreed 
+[btn-disagree-friend] {
+  display: none;
+}
+
+.box-user.disagreed 
+[btn-accept-friend] {
+  display: none;
+}
+.box-user.accepted 
+[btn-disagree-friend] {
+  display: none;
+}
+
+.box-user.accepted 
+[btn-accept-friend] {
+  display: none;
+}

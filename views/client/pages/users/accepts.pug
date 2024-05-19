@@ -1,0 +1,23 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+block main 
+  .container
+    .content-wrapper
+      include ../../partials/list-btn-friend.pug
+      .row.d-flex.justify-content-center
+        .col-8
+          +box-head(pageTitle)
+          .card.border.border-success
+            .card-body
+              each item in listUsers
+                div.d-flex.align-items-center.mb-4.gap-3.box-user
+                  img(src=item.avatar || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRewI4tonTOU-MiDbFkpGQ2MN_lMsLZCxSaBg&s" class="avatar-user" alt="1")
+                  div.d-flex.flex-column
+                    p=item.fullName
+                    div.d-flex.gap-3
+                      button(class="btn btn-success" btn-accept-friend=item.id) Chấp nhận
+                      button(class="btn btn-danger" btn-disagree-friend=item.id) Từ chối
+                      i(class="message-accepted") Đã trở thành bạn bè
+                      i(class="message-disagreed") Đã hủy yêu cầu kết bạn
+block script 
+  script(src="/js/users.js") 

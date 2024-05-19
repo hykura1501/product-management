@@ -217,8 +217,9 @@ li.chat-left {
   font-weight: 700;
 }
 
+
 .chat-container {
-  position: relative;
+  
 }
 
 .chat-container li.chat-left,
@@ -229,10 +230,11 @@ li.chat-left {
   padding-right: 20px;
 }
 
-.chat-infor-right, .chat-infor-left {
+.chat-infor-right,
+.chat-infor-left {
   display: flex;
   align-items: center;
-  gap:16px;
+  gap: 16px;
 }
 .chat-container li .chat-avatar {
   width: 48px;
@@ -262,7 +264,6 @@ li.chat-left {
   line-height: 150%;
   position: relative;
 }
-
 
 .box-chat-image-right {
   display: flex;
@@ -348,7 +349,9 @@ li.chat-left {
 .custom-file-container {
   height: auto !important;
 }
-.label-container, .input-visible, .input-container {
+.label-container,
+.input-visible,
+.input-container {
   display: none !important;
 }
 .image-preview-item {
