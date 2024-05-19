@@ -72,27 +72,43 @@ block main
                     each chat in chats 
                       if(chat.user_id == user.id)
                         li.chat-right
-                          .chat-hour
-                            | 08:56 
-                            span.fa.fa-check-circle
-                          .chat-text=chat.content
-                            //- br
-                            //- |  I need more information about Developer Plan.
-                          .chat-avatar
-                            img(src='https://www.bootdey.com/img/Content/avatar/avatar3.png' alt='Retail Admin')
-                            .chat-name=chat.inforUser.fullName
+                          div(class="chat-infor-right")
+                            .chat-hour
+                              | 08:56 
+                              span.fa.fa-check-circle
+                            if(chat.content)
+                              .chat-text=chat.content
+                            .chat-avatar
+                              img(src='https://www.bootdey.com/img/Content/avatar/avatar3.png' class="chat-avatar" alt='Retail Admin')
+                              .chat-name=chat.inforUser.fullName
+                          if(chat.images.length > 0)
+                            div(class="box-chat-image-right chat-image")
+                                each image in chat.images
+                                  img(src=image, alt="", srcset="" class="chat-image-right")
                       else
                         li.chat-left
-                          .chat-avatar
-                            img(src='https://www.bootdey.com/img/Content/avatar/avatar3.png' alt='Retail Admin')
-                            .chat-name=chat.inforUser.fullName
-                          .chat-text=chat.content
-                            //- br
-                            //- | How can I help you today?
-                          .chat-hour
-                            | 08:55 
-                            span.fa.fa-check-circle
-                  form.form-group.mt-3.mb-0.d-flex.form-input-message
+                          div(class="chat-infor-left")
+                            .chat-avatar
+                              img(src='https://www.bootdey.com/img/Content/avatar/avatar3.png' class="chat-avatar" alt='Retail Admin')
+                              .chat-name=chat.inforUser.fullName
+                            if(chat.content)
+                              .chat-text=chat.content
+                            .chat-hour
+                              | 08:56 
+                              span.fa.fa-check-circle
+                          if(chat.images.length > 0)
+                            div(class="box-chat-image-left chat-image")
+                                each image in chat.images
+                                  img(src=image, alt="", srcset="" class="chat-image-left")
+                  div(class="custom-file-container" data-upload-id="list_img")
+                  form.form-group.mt-3.mb-4.d-flex.form-input-message
                     input.form-control(rows='3' placeholder='Nhập tin nhắn' name="message")
+                    label(for="file-upload-with-preview-list_img" class="btn") 
+                      <i class="fa-regular fa-image"></i>
+                    span(class="buttonIcon btn") 
+                      <i class="fa-regular fa-face-smile"></i>
+                    div(class="tooltip" role="tooltip")
+                      emoji-picker.light
                     button(type="submit" class="btn")
                       i.fa-solid.fa-paper-plane
+    
