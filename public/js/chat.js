@@ -33,75 +33,78 @@ socket.on("SERVER_RETURN_DATA", (data) => {
     let ul = containerChat.querySelector(".chat-box.chatContainerScroll");
     let htmlContent = "";
     let htmlImg = "";
-    let boxImage = ""
+    let boxImage = "";
     if (myId === data.userId) {
+      // console.log(myId, data.userId);
+      // console.log(data);
       li.classList.add("chat-right");
-      if(data.content) {
+      if (data.content) {
         htmlContent = `<div class="chat-text">${data.content}</div>`;
       }
-      if(data.images.length > 0) {
-        
+      if (data.images.length > 0) {
         htmlImg = data.images.map((item) => {
           return `
-            <img src=${item} alt=${data.fullName} class="chat-image-right"/>
-          `
-        })
+              <img src=${item} alt=${data.fullName} class="chat-image-right"/>
+            `;
+        });
         htmlImg = htmlImg.join("");
-        boxImage = `<div class="box-chat-image-right chat-image">${htmlImg}</div>`
+        boxImage = `<div class="box-chat-image-right chat-image">${htmlImg}</div>`;
       }
 
       li.innerHTML = `
-        <div class="chat-infor-right"> 
-          <div class="chat-hour">
-            08:56 
-            <span class="fa fa-check-circle"> </span>
+          <div class="chat-infor-right"> 
+            <div class="chat-hour">
+              08:56 
+              <span class="fa fa-check-circle"> </span>
+            </div>
+            ${htmlContent}
+            <div> 
+              <img src='https://www.bootdey.com/img/Content/avatar/avatar3.png' class="chat-avatar" alt='Retail Admin'/>
+              <div class="chat-name">${data.fullName}</div>
+            </div>
           </div>
-          ${htmlContent}
-          <div> 
-            <img src='https://www.bootdey.com/img/Content/avatar/avatar3.png' class="chat-avatar" alt='Retail Admin'/>
-            <div class="chat-name">${data.fullName}</div>
-          </div>
-        </div>
-        ${boxImage}
-      `;
+          ${boxImage}
+        `;
+      ul.appendChild(li);
     } else {
       li.classList.add("chat-left");
-      if(data.content) {
+      if (data.content) {
         htmlContent = `<div class="chat-text">${data.content}</div>`;
       }
-      if(data.images.length > 0) {
-        
+      if (data.images.length > 0) {
         htmlImg = data.images.map((item) => {
           return `
-            <img src=${item} alt=${data.fullName} class="chat-image-left"/>
-          `
-        })
+              <img src=${item} alt=${data.fullName} class="chat-image-left"/>
+            `;
+        });
         htmlImg = htmlImg.join("");
-        boxImage = `<div class="box-chat-image-left chat-image">${htmlImg}</div>`
+        boxImage = `<div class="box-chat-image-left chat-image">${htmlImg}</div>`;
       }
 
       li.innerHTML = `
-        <div class="chat-infor-left"> 
-          <div> 
-            <img src='https://www.bootdey.com/img/Content/avatar/avatar3.png' class="chat-avatar" alt='Retail Admin'/>
-            <div class="chat-name">${data.fullName}</div>
+          <div class="chat-infor-left"> 
+            <div> 
+              <img src='https://www.bootdey.com/img/Content/avatar/avatar3.png' class="chat-avatar" alt='Retail Admin'/>
+              <div class="chat-name">${data.fullName}</div>
+            </div>
+            ${htmlContent}
+            <div class="chat-hour">
+              08:56 
+              <span class="fa fa-check-circle"> </span>
+            </div>
           </div>
-          ${htmlContent}
-          <div class="chat-hour">
-            08:56 
-            <span class="fa fa-check-circle"> </span>
-          </div>
-        </div>
-        ${boxImage}
-      `
-    }
-    const boxTyping = document.querySelector(".show-typing");
-    if(boxTyping) {
-      ul.insertBefore(li, boxTyping);
+          ${boxImage}
+          `;
+      const boxTyping = document.querySelector(".show-typing");
+      if (boxTyping) {
+        ul.insertBefore(li, boxTyping);
+      }else {
+        ul.appendChild(li);
+      }
     }
     ul.scrollTop = ul.scrollHeight;
-    const chatImage = li.querySelector(".chat-image")
-    if(chatImage) {
+    const chatImage = li.querySelector(".chat-image");
+    if (chatImage) {
       const gallery = new Viewer(chatImage);
     }
   }
@@ -149,11 +152,11 @@ socket.on("SERVER_SHOWN_TYPING", (data) => {
     li.classList.add("show");
     li.classList.add("show-typing");
     li.innerHTML = `
-      <div>${data.fullName}</div>
-      <div id="typing-indicator" class="show">...</div>
-    `;
+        <div>${data.fullName}</div>
+        <div id="typing-indicator" class="show">...</div>
+      `;
     containerChat.appendChild(li);
-    containerChat.scrollTop = containerChat.scrollHeight
+    containerChat.scrollTop = containerChat.scrollHeight;
   }
 });
 
@@ -176,4 +179,20 @@ socket.on("SERVER_HIDDEN_TYPING", (data) => {
     }
   }
 });
-const gallery = new Viewer(document.querySelector('.chat-box.chatContainerScroll'));
+const gallery = new Viewer(
+  document.querySelector(".chat-box.chatContainerScroll")
+);
+
+
+$('select').selectpicker();
+
+const inputUploadImage = document.querySelector('[input-upload-image]');
+if(inputUploadImage) {
+    inputUploadImage.addEventListener("change", (event) => {
+        const output = document.querySelector('[img-preview]')
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function() {
+          URL.revokeObjectURL(output.src) // free memory
+        }
+    })
+}

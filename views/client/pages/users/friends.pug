@@ -17,7 +17,7 @@ block main
                       p=item.fullName
                       i(class="fa-solid fa-circle statusOnline")
                     div.d-flex.gap-3.group-btn-action
-                      button(class="btn btn-success" btn-chat=item.id) Nhắn tin
+                      a(class="btn btn-success" btn-chat=item.id href=`/chat/${item.room_chat_id}`) Nhắn tin
                       button(class="btn btn-danger" btn-remove-friend=item.id) Hủy kết bạn
 block script 
   script(src="/js/users.js") 

@@ -1,6 +1,10 @@
 extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
 block main 
+  block link
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    
   .container
     .content-wrapper
       include ../../partials/list-btn-friend.pug
@@ -12,107 +16,127 @@ block main
             .row.no-gutters
               .col-xl-4.col-lg-4.col-md-4.col-sm-3.col-3
                 .users-container
+                  //- button(class="btn btn-primary") Tạo nhóm chat
+                  // Button trigger modal
+                  button.btn.btn-primary(type='button' data-bs-toggle='modal' data-bs-target='#create-group-chat')
+                    | Tạo nhóm chat
+                  // Modal
+                  #create-group-chat.modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel' aria-hidden='true')
+                    .modal-dialog.modal-dialog-centered
+                      form(action="/chat/create-group-chat" method="POST" enctype="multipart/form-data").modal-content
+                        .modal-header
+                          h1#staticBackdropLabel.modal-title.fs-5 Tạo nhóm chat
+                          button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                        .modal-body
+                          div(class="mb-3")
+                            label(for="title" class="form-label") Tên nhóm 
+                            input(type="text" id="title" name="title" class="form-control")
+                          div(class="mb-3")
+                            label(for="avatar" class="form-label") Ảnh nhóm 
+                            input(type="file" accept="image/*" class='form-control-file' input-upload-image id="avatar" name="avatar" class="form-control")
+                            img(src="" alt="" img-preview class='img-thumbnail mt-3')
+                          div(class="mb-3")
+                            <div class="d-flex align-items-center">
+                              <strong>Thành viên</strong>
+                                <select class="selectpicker" multiple data-live-search="true" name="users">
+                                  each friend in myFriends
+                                    option(value=friend.inforUser.id)=friend.inforUser.fullName
+                                </select>
+                            </div>
+                        .modal-footer
+                          button.btn.btn-secondary(type='button' data-bs-dismiss='modal') Đóng
+                          button.btn.btn-primary(type='submit') Tạo
+
+
                   .chat-search-box
                     .input-group
                       input.form-control(placeholder='Search')
                       .input-group-btn
                         button.btn.btn-info(type='button')
                           i.fa.fa-search
-                  ul.users
-                    li.person(data-chat='person1')
-                      .user
-                        img(src='https://www.bootdey.com/img/Content/avatar/avatar3.png' alt='Retail Admin')
-                        span.status.busy
-                      p.name-time
-                        span.name Steve Bangalter
-                        span.time 15/02/2019
-                    li.person(data-chat='person1')
-                      .user
-                        img(src='https://www.bootdey.com/img/Content/avatar/avatar1.png' alt='Retail Admin')
-                        span.status.offline
-                      p.name-time
-                        span.name Steve Bangalter
-                        span.time 15/02/2019
-                    li.person.active-user(data-chat='person2')
-                      .user
-                        img(src='https://www.bootdey.com/img/Content/avatar/avatar2.png' alt='Retail Admin')
-                        span.status.away
-                      p.name-time
-                        span.name Peter Gregor
-                        span.time 12/02/2019
-                    li.person(data-chat='person3')
-                      .user
-                        img(src='https://www.bootdey.com/img/Content/avatar/avatar3.png' alt='Retail Admin')
-                        span.status.busy
-                      p.name-time
-                        span.name Jessica Larson
-                        span.time 11/02/2019
-                    li.person(data-chat='person4')
-                      .user
-                        img(src='https://www.bootdey.com/img/Content/avatar/avatar4.png' alt='Retail Admin')
-                        span.status.offline
-                      p.name-time
-                        span.name Lisa Guerrero
-                        span.time 08/02/2019
-                    li.person(data-chat='person5')
-                      .user
-                        img(src='https://www.bootdey.com/img/Content/avatar/avatar5.png' alt='Retail Admin')
-                        span.status.away
-                      p.name-time
-                        span.name Michael Jordan
-                        span.time 05/02/2019
-              .col-xl-8.col-lg-8.col-md-8.col-sm-9.col-9
-                .selected-user
-                  span
-                    | To: 
-                    span.name Emily Russell
-                div(my_id=user.id).chat-container
-                  ul.chat-box.chatContainerScroll
-                    each chat in chats 
-                      if(chat.user_id == user.id)
-                        li.chat-right
-                          div(class="chat-infor-right")
-                            .chat-hour
-                              | 08:56 
-                              span.fa.fa-check-circle
-                            if(chat.content)
-                              .chat-text=chat.content
-                            .chat-avatar
-                              img(src='https://www.bootdey.com/img/Content/avatar/avatar3.png' class="chat-avatar" alt='Retail Admin')
-                              .chat-name=chat.inforUser.fullName
-                          if(chat.images.length > 0)
-                            div(class="box-chat-image-right chat-image")
+                  if(!notFriend && groups.length > 0)
+                    ul.users
+                      each friend in myFriends
+                        a(href=`/chat/${friend.room_chat_id}`)
+                          li.person(data-chat='person1')
+                            .user
+                              img(src=friend.inforUser.avatar || 'https://www.bootdey.com/img/Content/avatar/avatar3.png'  alt=friend.inforUser.fullName)
+                              span(class=`status ${friend.inforUser.statusOnline}`)
+                            p.name-time
+                              span.name=friend.inforUser.fullName
+                              //- span.time 15/02/2019
+
+                      li Nhóm chat 
+                      each group in groups  
+                        a(href=`/chat/${group.id}`)
+                          li.person(data-chat='person1')
+                            .user
+                              img(src=group.avatar || 'https://www.bootdey.com/img/Content/avatar/avatar3.png'  alt=group.title)
+                              span(class=`status online`)
+                            p.name-time
+                              span.name=group.title
+                              //- span.time 15/02/2019
+                  else 
+                    i Không có đoạn chat nào
+              if(!notFriend)
+                .col-xl-8.col-lg-8.col-md-8.col-sm-9.col-9
+                  .selected-user
+                    span
+                      | To: 
+                      span.name=chats.inforUser.fullName
+                  div(my_id=user.id).chat-container
+                    ul.chat-box.chatContainerScroll
+                      each chat in chats 
+                        if(chat.user_id == user.id)
+                          li.chat-right
+                            div(class="chat-infor-right")
+                              .chat-hour
+                                | 08:56 
+                                span.fa.fa-check-circle
+                              if(chat.content)
+                                .chat-text=chat.content
+                              .chat-avatar
+                                img(src='https://www.bootdey.com/img/Content/avatar/avatar3.png' class="chat-avatar" alt='Retail Admin')
+                                .chat-name=chats.inforUser.fullName
+                            if(chat.images.length > 0)
+                              div(class="box-chat-image-right chat-image")
                                 each image in chat.images
-                                  img(src=image, alt="", srcset="" class="chat-image-right")
-                      else
-                        li.chat-left
-                          div(class="chat-infor-left")
-                            .chat-avatar
-                              img(src='https://www.bootdey.com/img/Content/avatar/avatar3.png' class="chat-avatar" alt='Retail Admin')
-                              .chat-name=chat.inforUser.fullName
-                            if(chat.content)
-                              .chat-text=chat.content
-                            .chat-hour
-                              | 08:56 
-                              span.fa.fa-check-circle
-                          if(chat.images.length > 0)
-                            div(class="box-chat-image-left chat-image")
+                                  img(src=image, alt="" srcset="" class="chat-image-right")
+                        else
+                          li.chat-left
+                            div(class="chat-infor-left")
+                              .chat-avatar
+                                img(src='https://www.bootdey.com/img/Content/avatar/avatar3.png' class="chat-avatar" alt='Retail Admin')
+                                .chat-name=chats.inforUser.fullName
+                              if(chat.content)
+                                .chat-text=chat.content
+                              .chat-hour
+                                | 08:56 
+                                span.fa.fa-check-circle
+                            if(chat.images.length > 0)
+                              div(class="box-chat-image-left chat-image")
                                 each image in chat.images
-                                  img(src=image, alt="", srcset="" class="chat-image-left")
-                  div(class="custom-file-container" data-upload-id="list_img")
-                  form.form-group.mt-3.mb-4.d-flex.form-input-message
-                    input.form-control(rows='3' placeholder='Nhập tin nhắn' name="message")
-                    label(for="file-upload-with-preview-list_img" class="btn") 
-                      <i class="fa-regular fa-image"></i>
-                    span(class="buttonIcon btn") 
-                      <i class="fa-regular fa-face-smile"></i>
-                    div(class="tooltip" role="tooltip")
-                      emoji-picker.light
-                    button(type="submit" class="btn")
-                      i.fa-solid.fa-paper-plane
+                                  img(src=image, alt="" srcset="" class="chat-image-left")
+                    div(class="custom-file-container" data-upload-id="list_img")
+                    form.form-group.mt-3.mb-4.d-flex.form-input-message
+                      input.form-control(rows='3' placeholder='Nhập tin nhắn' name="message")
+                      label(for="file-upload-with-preview-list_img" class="btn") 
+                        <i class="fa-regular fa-image"></i>
+                      span(class="buttonIcon btn") 
+                        <i class="fa-regular fa-face-smile"></i>
+                      div(class="tooltip" role="tooltip")
+                        emoji-picker.light
+                      button(type="submit" class="btn")
+                        i.fa-solid.fa-paper-plane
 block script 
   script(type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js")
   script(src="https://unpkg.com/file-upload-with-preview/dist/file-upload-with-preview.iife.js") 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.6/viewer.min.js"></script>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
   script(type="module" src="/js/chat.js") 
   
+    
+

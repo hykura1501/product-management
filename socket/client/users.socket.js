@@ -1,8 +1,15 @@
 const User = require("../../models/user.model");
+const RoomChat = require("../../models/room-chat.model");
 module.exports = async (res) => {
   _io.once("connection", (socket) => {
     //Server nhận data
     const myId = res.locals.user.id;
+
+    // socket.broadcast.emit("SERVER_RETURN_USER_ONLINE", myId)
+
+    // socket.on('disconnect', () => {
+    //   socket.broadcast.emit("SERVER_RETURN_USER_OFFLINE", myId)
+    // });
 
     socket.on("CLIENT_ADD_FRIEND", async (userId) => {
       const userRequested = await User.findOne({ _id: userId });
@@ -68,14 +75,35 @@ module.exports = async (res) => {
       // - thêm vào list friend
       // - xóa accept của myid
       // - xóa request của userid
+      const newRoomChat = new RoomChat({
+        type: "friend",
+        users: [
+          {
+            user_id: myId,
+            role: "admin",
+          },
+          {
+            user_id: userId,
+            role: "admin",
+          },
+        ],
+      });
+      await newRoomChat.save();
+
       const myUser = await User.findByIdAndUpdate(
         { _id: myId },
-        { $push: { friends: { user_id: userId } }, $pull: { accepts: userId } },
+        {
+          $push: { friends: { user_id: userId, room_chat_id: newRoomChat.id } },
+          $pull: { accepts: userId },
+        },
         { new: true }
       );
       await User.updateOne(
         { _id: userId },
-        { $push: { friends: { user_id: myId } }, $pull: { requests: myId } }
+        {
+          $push: { friends: { user_id: myId, room_chat_id: newRoomChat.id } },
+          $pull: { requests: myId },
+        }
       );
 
       socket.emit("SERVER_RETURN_LENGTH_ACCEPT_FRIEND", {
@@ -102,19 +130,19 @@ module.exports = async (res) => {
       await User.updateOne(
         { _id: myId },
         {
-          $pull: { friends: {user_id: userId} },
+          $pull: { friends: { user_id: userId } },
         }
       );
       await User.updateOne(
         { _id: userId },
         {
-          $pull: { friends: {user_id: myId} },
+          $pull: { friends: { user_id: myId } },
         }
       );
       socket.broadcast.emit("SERVER_RETURN_REMOVE_FRIEND", {
         myId: userId,
-        userId: myId
-      })
+        userId: myId,
+      });
     });
   });
 };

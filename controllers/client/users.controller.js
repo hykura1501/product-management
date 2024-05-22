@@ -41,7 +41,7 @@ module.exports.friends = async (req, res) => {
     deleted: false,
     status: "active",
   });
-  const friends = myUser.friends.map(item => {
+  const friends = myUser.friends.map((item) => {
     return item.user_id
   })
   const myFriends = await User.find({
@@ -49,7 +49,11 @@ module.exports.friends = async (req, res) => {
     deleted: false,
     status: "active",
   }).select("fullName avatar statusOnline");
-  // console.log(myFriends);
+
+  for(const friend of myFriends) {
+    friend.room_chat_id = myUser.friends.find(item => item.user_id === friend.id).room_chat_id
+  }
+
   res.render("client/pages/users/friends", {
     pageTitle: "Danh sách bạn bè",
     listUsers: myFriends,
