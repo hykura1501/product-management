@@ -15,6 +15,7 @@ block main
                   div.d-flex.flex-column
                     p=item.fullName
                     div.d-flex.gap-3
-                      button(class="btn btn-danger requests" btn-cancel-friend=item.id requests) Hủy
+                      button(class="btn btn-danger" btn-cancel-friend=item.id) Hủy
+                      button(class="btn btn-success" btn-add-friend=item.id) Kết bạn
 block script 
   script(src="/js/users.js") 

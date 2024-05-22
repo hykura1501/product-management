@@ -1,6 +1,9 @@
 .row
-    .col-12.d-flex.justify-content-center.gap-5.py-3
-        a(class="btn btn-success" href="/users/list-users") Danh sách người dùng
-        a(class="btn btn-success" href="/users/friends") Danh sách bạn bè
-        a(class="btn btn-success" href="/users/requests") Lời mời đã gửi
-        a(class="btn btn-success" href="/users/accepts") Lời mời kết bạn
+  .col-12.d-flex.justify-content-center.gap-5.py-3
+    div(class="infor-user" myId=user.id)
+    a(class="btn btn-success" href="/users/list-users") Danh sách người dùng
+    a(class="btn btn-success" href="/users/friends") Danh sách bạn bè
+    a(class="btn btn-success" href="/users/requests") Lời mời đã gửi
+    a(class="btn btn-success position-relative" href="/users/accepts") Lời mời kết bạn 
+      span(badge-accepts-friend class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger")=user.accepts.length 
+      span.visually-hidden unread messages

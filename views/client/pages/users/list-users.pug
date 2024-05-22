@@ -8,9 +8,9 @@ block main
         .col-8
           +box-head(pageTitle)
           .card.border.border-success
-            div(class="infor-user" myId=user.id).card-body
+            div.card-body.list-users
               each item in listUsers
-                div.d-flex.align-items-center.mb-4.gap-3.box-user
+                div(box-item-add-friend=item.id).d-flex.align-items-center.mb-4.gap-3.box-user
                   img(src=item.avatar || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRewI4tonTOU-MiDbFkpGQ2MN_lMsLZCxSaBg&s" class="avatar-user")
                   div.d-flex.flex-column
                     p=item.fullName

@@ -43,6 +43,15 @@ module.exports.login = async (req, res) => {
 };
 //[GET] /user/logout
 module.exports.logout = async (req, res) => {
+  await User.updateOne(
+    { _id: res.locals.user.id },
+    { statusOnline: "offline" }
+  );
+
+  _io.once("connection", (socket) => {
+    socket.broadcast.emit("SERVER_RETURN_USER_OFFLINE", res.locals.user.id);
+  });
+
   res.clearCookie("tokenUser");
   res.redirect("/");
 };
@@ -68,6 +77,12 @@ module.exports.loginPost = async (req, res) => {
     res.redirect("back");
     return;
   }
+
+  await User.updateOne({ _id: user.id }, { statusOnline: "online" });
+
+  _io.once("connection", (socket) => {
+    socket.broadcast.emit("SERVER_RETURN_USER_ONLINE", user.id);
+  });
 
   res.cookie("tokenUser", user.tokenUser);
 
@@ -99,8 +114,8 @@ module.exports.forgotPasswordPost = async (req, res) => {
         const html = `Mã OTP để lấy lại mật khẩu của bạn là: <b>${otp}</b>. Vui lòng không cung cấp cho bất kỳ ai. Lưu ý mã này chỉ có thể sử dụng trong vòng 3 phút`;
         sendMailHelper.sendMail(email, subject, html);
         res.redirect(`/user/password/otp?email=${email}`);
-      }else {
-        res.redirect("back")
+      } else {
+        res.redirect("back");
       }
     } catch (error) {
       console.log(error);
@@ -168,6 +183,6 @@ module.exports.resetPost = async (req, res) => {
 //[GET] /user/profile
 module.exports.profile = async (req, res) => {
   res.render("client/pages/user/profile", {
-    pageTitle: "Thông tin cá nhân"
-  })
+    pageTitle: "Thông tin cá nhân",
+  });
 };

@@ -454,3 +454,12 @@ label.radio input:checked + span {
 [btn-accept-friend] {
   display: none;
 }
+
+.statusOnline {
+  opacity: 0;
+}
+
+.user-fullname-status[status="online"] .statusOnline {
+  color: #11f03a;
+  opacity: 1;
+}

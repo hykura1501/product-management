@@ -30,7 +30,7 @@ socket.on("SERVER_RETURN_DATA", (data) => {
   const myId = containerChat.getAttribute("my_id");
   if (containerChat) {
     const li = document.createElement("li");
-    const ul = containerChat.querySelector(".chat-box.chatContainerScroll");
+    let ul = containerChat.querySelector(".chat-box.chatContainerScroll");
     let htmlContent = "";
     let htmlImg = "";
     let boxImage = ""
@@ -95,7 +95,10 @@ socket.on("SERVER_RETURN_DATA", (data) => {
         ${boxImage}
       `
     }
-    ul.appendChild(li);
+    const boxTyping = document.querySelector(".show-typing");
+    if(boxTyping) {
+      ul.insertBefore(li, boxTyping);
+    }
     ul.scrollTop = ul.scrollHeight;
     const chatImage = li.querySelector(".chat-image")
     if(chatImage) {
@@ -142,14 +145,14 @@ socket.on("SERVER_SHOWN_TYPING", (data) => {
   const containerChat = document.querySelector(".chat-box.chatContainerScroll");
   const existElement = document.querySelector("#typing-indicator");
   if (!existElement) {
-    const div = document.createElement("div");
-    div.classList.add("show");
-    div.classList.add("show-typing");
-    div.innerHTML = `
+    const li = document.createElement("li");
+    li.classList.add("show");
+    li.classList.add("show-typing");
+    li.innerHTML = `
       <div>${data.fullName}</div>
       <div id="typing-indicator" class="show">...</div>
     `;
-    containerChat.insertBefore(div, containerChat.children[-1]);
+    containerChat.appendChild(li);
     containerChat.scrollTop = containerChat.scrollHeight
   }
 });

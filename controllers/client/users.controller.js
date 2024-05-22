@@ -34,20 +34,21 @@ module.exports.listUsers = async (req, res) => {
 
 //[GET] /users/friends
 module.exports.friends = async (req, res) => {
+  usersSocket(res);
   const myId = res.locals.user.id;
-  const user = await User.findOne({
+  const myUser = await User.findOne({
     _id: myId,
     deleted: false,
     status: "active",
   });
-  const friends = user.friends.map(item => {
+  const friends = myUser.friends.map(item => {
     return item.user_id
   })
   const myFriends = await User.find({
     _id: { $in: friends },
     deleted: false,
     status: "active",
-  }).select("fullName avatar");
+  }).select("fullName avatar statusOnline");
   // console.log(myFriends);
   res.render("client/pages/users/friends", {
     pageTitle: "Danh sách bạn bè",
